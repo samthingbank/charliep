@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Account Locked</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #fff0f0, #f8dddd);
+      font-family: Arial, sans-serif;
+      color: #173b2e;
+    }
+    .locked-card {
+      width: min(540px, calc(100vw - 32px));
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(23,75,60,0.12);
+      border-radius: 28px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 64px rgba(8, 25, 22, 0.08);
+      text-align: center;
+    }
+    .locked-icon {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(23,75,60,0.12);
+      font-size: 2rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(23,59,46,0.85);
+      margin: 0 0 18px;
+    }
+    .phone-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      margin: 0 0 22px;
+      border-radius: 999px;
+      background: rgba(23,75,60,0.08);
+      border: 1px solid rgba(23,75,60,0.12);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .lock-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .pay-button, .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .pay-button {
+      background: #b30000;
+      color: #fffaf4;
+    }
+    .ghost-button {
+      background: transparent;
+      border-color: rgba(23,75,60,0.2);
+      color: #173b2e;
+    }
+  </style>
+</head>
+<body>
+  <div class="locked-card">
+    <div class="locked-icon">🔒</div>
+    <h1>Account locked</h1>
+    <p>
+      For your protection, this account has been locked due to a transfer security review.
+      Please contact the bank and speak with an account manager to continue.
+    </p>
+    <div class="phone-pill">Call: (800) 555-0147</div>
+    <div class="lock-actions">
+      <a class="pay-button" href="tel:+18005550147">Call account manager</a>
+      <a class="ghost-button" href="index.html">Back to home</a>
+    </div>
+  </div>
+</body>
+</html>

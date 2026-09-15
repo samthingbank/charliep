@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Loans</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a class="active" href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Loans</h1>
+        </div>
+        <div class="dashboard-actions">
+          <button id="applyLoanButton" class="nav-button small-button" type="button">+ Apply for loan</button>
+        </div>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Loan overview</span>
+              <h2>Personal loan</h2>
+            </div>
+            <a href="#" class="panel-link">Details</a>
+          </div>
+
+          <div class="loan-total">
+            <span class="loan-label">Outstanding balance</span>
+            <span class="loan-amount">$0.00</span>
+          </div>
+
+          <div class="loan-grid">
+            <div class="loan-row">
+              <span class="loan-label">Origination</span>
+              <span class="loan-value">$0.00</span>
+            </div>
+            <div class="loan-row">
+              <span class="loan-label">Monthly payment</span>
+              <span class="loan-value">$0.00</span>
+            </div>
+            <div class="loan-row">
+              <span class="loan-label">Next payment</span>
+              <span class="loan-value">—</span>
+            </div>
+            <div class="loan-row">
+              <span class="loan-label">Rate</span>
+              <span class="loan-value">0.0%</span>
+            </div>
+          </div>
+
+          <div class="quick-pay">
+            <a class="pay-button" href="#">Make payment</a>
+            <a class="pay-button outline-button" href="#">Request review</a>
+          </div>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Loan activity</span>
+              <h2>Payment history</h2>
+            </div>
+            <a href="#" class="panel-link">All</a>
+          </div>
+
+          <div class="transaction-list">
+            <div class="transaction-row">
+              <span class="transaction-icon income">•</span>
+              <div>
+                <span class="transaction-title">No loan activity</span>
+                <span class="transaction-meta">Your loan history will appear here</span>
+              </div>
+              <span class="transaction-amount">$0.00</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="card-panel premium-loan-table" style="margin-top: 20px;">
+        <div class="panel-heading premium-panel-heading">
+          <div>
+            <span class="panel-label">Applications</span>
+            <h2>My loan requests</h2>
+          </div>
+        </div>
+
+        <div class="table-wrap premium-table-wrap" style="margin-top: 18px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Term</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="loanRequestList">
+              <tr>
+                <td colspan="4" style="color: var(--muted); text-align: center; padding: 18px 12px; font-weight: 700;">No loan requests yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+    }
+
+    renderCurrentUserProfile();
+  </script>
+
+  <div id="loanModal" class="loan-modal hidden" aria-hidden="true">
+    <div class="loan-modal-card">
+      <div class="panel-heading" style="margin-bottom: 18px;">
+        <div>
+          <span class="panel-label">New application</span>
+          <h2>Apply for a loan</h2>
+        </div>
+        <button id="closeLoanModal" class="modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <form id="userLoanForm" class="loan-form">
+        <div class="loan-field-grid">
+          <label>
+            <span>Loan type</span>
+            <select id="loanType" required>
+              <option value="Personal">Personal</option>
+              <option value="Auto">Auto</option>
+              <option value="Home">Home</option>
+              <option value="Business">Business</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Loan amount</span>
+            <input id="loanAmount" type="number" min="500" step="100" placeholder="2000" required />
+          </label>
+
+          <label>
+            <span>Term</span>
+            <select id="loanTerm" required>
+              <option value="12 months">12 months</option>
+              <option value="24 months">24 months</option>
+              <option value="36 months">36 months</option>
+              <option value="48 months">48 months</option>
+            </select>
+          </label>
+
+          <label class="full-width">
+            <span>Purpose</span>
+            <textarea id="loanPurpose" rows="3" placeholder="Tell us how you plan to use the funds" required></textarea>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="pay-button">Submit application</button>
+          <button type="button" id="cancelLoanModal" class="pay-button outline-button">Cancel</button>
+        </div>
+
+        <p id="loanFormMessage" class="loan-form-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const loanModal = document.getElementById('loanModal');
+    const applyLoanButton = document.getElementById('applyLoanButton');
+    const closeLoanModal = document.getElementById('closeLoanModal');
+    const cancelLoanModal = document.getElementById('cancelLoanModal');
+    const userLoanForm = document.getElementById('userLoanForm');
+    const loanFormMessage = document.getElementById('loanFormMessage');
+    const loanRequestList = document.getElementById('loanRequestList');
+
+    function getLoanApplications() {
+      try {
+        return JSON.parse(localStorage.getItem('evergreenLoanApplications') || '[]');
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveLoanApplications(applications) {
+      localStorage.setItem('evergreenLoanApplications', JSON.stringify(applications));
+    }
+
+    function formatCurrency(value) {
+      return window.EvergreenCurrency.format(value);
+    }
+
+    function openLoanModal() {
+      if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      if (loanModal) {
+        loanModal.classList.remove('hidden');
+        loanModal.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    function closeLoanModalDialog() {
+      if (loanModal) {
+        loanModal.classList.add('hidden');
+        loanModal.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    function renderLoanRequests() {
+      if (!loanRequestList) return;
+
+      const currentEmail = (currentUser?.email || '').trim().toLowerCase();
+      const applications = getLoanApplications().filter((item) => (item.email || '').trim().toLowerCase() === currentEmail);
+
+      if (!applications.length) {
+        loanRequestList.innerHTML = '<tr><td colspan="4" style="color: var(--muted); text-align: center; padding: 18px 12px; font-weight: 700;">No loan requests yet.</td></tr>';
+        return;
+      }
+
+      loanRequestList.innerHTML = applications.map((item) => {
+        const normalizedStatus = String(item.status || 'pending').trim().toLowerCase();
+        const status = normalizedStatus === 'approved' ? 'Approved' : normalizedStatus === 'rejected' ? 'Rejected' : 'Pending approval';
+        const statusClass = normalizedStatus === 'approved' ? 'status active' : normalizedStatus === 'rejected' ? 'status locked' : 'status under-review';
+
+        return `
+          <tr>
+            <td>${item.type || 'Personal'}</td>
+            <td>${formatCurrency(item.amount || 0)}</td>
+            <td>${item.term || '12 months'}</td>
+            <td><span class="${statusClass}">${status}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'evergreenLoanApplications') {
+        renderLoanRequests();
+      }
+    });
+    window.addEventListener('evergreen:loan-status-updated', renderLoanRequests);
+
+    if (applyLoanButton) {
+      applyLoanButton.addEventListener('click', openLoanModal);
+    }
+
+    if (closeLoanModal) {
+      closeLoanModal.addEventListener('click', closeLoanModalDialog);
+    }
+
+    if (cancelLoanModal) {
+      cancelLoanModal.addEventListener('click', closeLoanModalDialog);
+    }
+
+    if (loanModal) {
+      loanModal.addEventListener('click', (event) => {
+        if (event.target === loanModal) {
+          closeLoanModalDialog();
+        }
+      });
+    }
+
+    if (userLoanForm) {
+      userLoanForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        if (!currentUser) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const type = document.getElementById('loanType')?.value || 'Personal';
+        const amount = Number(document.getElementById('loanAmount')?.value || 0);
+        const term = document.getElementById('loanTerm')?.value || '12 months';
+        const purpose = document.getElementById('loanPurpose')?.value.trim() || '';
+
+        if (!amount || amount <= 0 || !purpose) {
+          if (loanFormMessage) {
+            loanFormMessage.textContent = 'Please complete the loan amount and purpose before submitting.';
+            loanFormMessage.classList.add('error');
+          }
+          return;
+        }
+
+        const applications = getLoanApplications();
+        applications.unshift({
+          id: Date.now(),
+          email: currentUser.email,
+          borrower: `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() || 'Customer',
+          type,
+          amount,
+          term,
+          purpose,
+          status: 'pending',
+          submittedAt: new Date().toISOString()
+        });
+
+        saveLoanApplications(applications);
+        if (window.EvergreenActivity) {
+          window.EvergreenActivity.log(currentUser, 'Loan application submitted', `${type} loan application for ${formatCurrency(amount)}.`, 'loan');
+        }
+        renderLoanRequests();
+
+        if (loanFormMessage) {
+          loanFormMessage.textContent = 'Your loan has been submitted for approval and is pending admin review.';
+          loanFormMessage.classList.remove('error');
+        }
+
+        userLoanForm.reset();
+        closeLoanModalDialog();
+      });
+    }
+
+    renderLoanRequests();
+  </script>
+  <script>
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

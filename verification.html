@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Verification</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="verification-body">
+  <div class="account-page">
+    <header class="account-header">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+        Key Bank
+      </a>
+
+      <nav class="main-nav">
+        <a href="#">Personal</a>
+        <a href="#">Business</a>
+        <a href="#">Savings</a>
+        <a href="#">Investments</a>
+        <a href="#">Support</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-login" href="#">Log in</a>
+      </div>
+    </header>
+
+    <main class="verification-layout">
+      <section class="verification-intro">
+        <div class="intro-label">Identity verification</div>
+        <h1>Complete your profile.</h1>
+        <p class="intro-copy">
+          We need a few secure details to help us review your account and keep your information protected.
+        </p>
+
+        <div class="verification-checks">
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>Upload a valid government ID</span>
+          </div>
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>Confirm SSN or EIN</span>
+          </div>
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>Review mailing and employment information</span>
+          </div>
+        </div>
+
+        <div class="secure-box">
+          <span class="secure-icon">🔒</span>
+          <span>Your information is encrypted and reviewed securely.</span>
+        </div>
+      </section>
+
+      <section class="verification-form-wrap">
+        <div class="form-panel verification-panel">
+          <div class="form-panel-head">
+            <span class="form-kicker">Step 2 of 2</span>
+            <span class="secure-badge">Secure review</span>
+          </div>
+
+          <h2>Customer verification</h2>
+
+          <form class="verification-form" id="verificationForm">
+            <div class="form-grid verification-grid">
+              <label class="form-field full-field">
+                <span>Country of residence</span>
+                <select id="country" required>
+                  <option value="">Select your country</option>
+                  <option value="australia">Australia</option>
+                  <option value="canada">Canada</option>
+                  <option value="india">India</option>
+                  <option value="nigeria">Nigeria</option>
+                  <option value="south-africa">South Africa</option>
+                  <option value="united-kingdom">United Kingdom</option>
+                  <option value="united-states">United States</option>
+                </select>
+              </label>
+
+              <label class="form-field full-field">
+                <span>Choose a valid ID type</span>
+                <select id="idType" required disabled>
+                  <option value="">Select an ID type</option>
+                </select>
+              </label>
+
+              <div class="upload-area hidden" id="uploadArea">
+                <label class="form-field full-field">
+                  <span id="uploadLabel">Upload valid ID</span>
+                  <small id="uploadHint">Choose an image to upload.</small>
+                  <input type="file" id="idUpload" accept="image/png,image/jpeg" />
+                </label>
+                <label class="form-field full-field" id="backUploadField" hidden>
+                  <span>Upload back of ID</span>
+                  <input type="file" id="idUploadBack" accept="image/png,image/jpeg" />
+                </label>
+              </div>
+
+              <label class="form-field">
+                <span id="nationalIdLabel">National ID number</span>
+                <input id="ssnNumber" type="text" placeholder="Select your country first" required disabled />
+              </label>
+
+              <label class="form-field">
+                <span>Date of birth</span>
+                <input id="dateOfBirth" type="date" required />
+              </label>
+
+              <label class="form-field full-field">
+                <span>Residential address</span>
+                <input id="residentialAddress" type="text" placeholder="Street address" required />
+              </label>
+
+              <label class="form-field">
+                <span>City</span>
+                <input id="cityName" type="text" placeholder="San Francisco" required />
+              </label>
+
+              <label class="form-field">
+                <span id="stateLabel">State / province</span>
+                <input id="stateName" type="text" placeholder="Select your country first" required disabled />
+              </label>
+
+              <label class="form-field">
+                <span id="postalCodeLabel">Postal code</span>
+                <input id="zipCode" type="text" placeholder="Select your country first" required disabled />
+              </label>
+
+              <label class="form-field">
+                <span>Occupation</span>
+                <input id="occupation" type="text" placeholder="Software Engineer" required />
+              </label>
+
+              <label class="form-field">
+                <span>Employer</span>
+                <input id="employer" type="text" placeholder="Company name" required />
+              </label>
+
+              <label class="form-field">
+                <span>Source of funds</span>
+                <select id="sourceOfFunds" required>
+                  <option>Employed</option>
+                  <option>Business income</option>
+                  <option>Investments</option>
+                  <option>Savings</option>
+                </select>
+              </label>
+
+              <label class="form-field">
+                <span>Annual income</span>
+                <select id="annualIncome" required disabled>
+                  <option value="">Select your country first</option>
+                </select>
+              </label>
+
+              <label class="form-field full-field">
+                <span>Additional notes</span>
+                <textarea id="additionalNotes" rows="4" placeholder="Tell us anything helpful for verification"></textarea>
+              </label>
+            </div>
+
+            <div class="terms">
+              <label class="checkbox-row">
+                <input type="checkbox" required />
+                <span>I confirm that the submitted information is accurate.</span>
+              </label>
+            </div>
+
+            <div id="verificationMessage" style="display:none; margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(106, 166, 109, 0.08); color: var(--green-deep); border: 1px solid rgba(106, 166, 109, 0.18); font-weight: 700; line-height: 1.5;">
+              You have submitted your application and it is under review.
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" class="submit-button">Submit for Review</button>
+              <a class="ghost-button" href="account.html">Back</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const country = document.getElementById('country');
+    const idType = document.getElementById('idType');
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadLabel = document.getElementById('uploadLabel');
+    const uploadHint = document.getElementById('uploadHint');
+    const idUpload = document.getElementById('idUpload');
+    const backUploadField = document.getElementById('backUploadField');
+    const idUploadBack = document.getElementById('idUploadBack');
+    const verificationForm = document.getElementById('verificationForm');
+    const verificationMessage = document.getElementById('verificationMessage');
+    const nationalIdLabel = document.getElementById('nationalIdLabel');
+    const stateLabel = document.getElementById('stateLabel');
+    const postalCodeLabel = document.getElementById('postalCodeLabel');
+    const ssnNumber = document.getElementById('ssnNumber');
+    const stateName = document.getElementById('stateName');
+    const zipCode = document.getElementById('zipCode');
+    const annualIncome = document.getElementById('annualIncome');
+
+    const currencyByCountry = {
+      australia: 'AUD',
+      canada: 'CAD',
+      india: 'INR',
+      nigeria: 'NGN',
+      'south-africa': 'ZAR',
+      'united-kingdom': 'GBP',
+      'united-states': 'USD'
+    };
+
+    const annualIncomeRanges = [
+      ['0', '25,000'],
+      ['25,001', '50,000'],
+      ['50,001', '100,000'],
+      ['100,000', '+']
+    ];
+
+    const countryForms = {
+      australia: {
+        ids: ['Australian Driver Licence', 'Australian Passport', 'ImmiCard'],
+        nationalId: 'Tax File Number (TFN)',
+        nationalIdPlaceholder: '123 456 789',
+        region: 'State / territory',
+        regionPlaceholder: 'NSW',
+        postal: 'Postcode',
+        postalPlaceholder: '2000'
+      },
+      canada: {
+        ids: ["Provincial Driver's Licence", 'Canadian Passport', 'Permanent Resident Card'],
+        nationalId: 'Social Insurance Number (SIN)',
+        nationalIdPlaceholder: '123-456-789',
+        region: 'Province / territory',
+        regionPlaceholder: 'ON',
+        postal: 'Postal code',
+        postalPlaceholder: 'A1A 1A1'
+      },
+      india: {
+        ids: ['Aadhaar Card', 'PAN Card', 'Indian Passport', 'Voter ID'],
+        nationalId: 'PAN / Aadhaar number',
+        nationalIdPlaceholder: 'ABCDE1234F',
+        region: 'State / union territory',
+        regionPlaceholder: 'Maharashtra',
+        postal: 'PIN code',
+        postalPlaceholder: '400001'
+      },
+      nigeria: {
+        ids: ['National Identity Card', 'Nigerian Passport', "Driver's Licence"],
+        nationalId: 'National Identification Number (NIN)',
+        nationalIdPlaceholder: '12345678901',
+        region: 'State',
+        regionPlaceholder: 'Lagos',
+        postal: 'Postal code',
+        postalPlaceholder: '100001'
+      },
+      'south-africa': {
+        ids: ['South African ID Card', 'South African Passport', "Driver's Licence"],
+        nationalId: 'South African ID number',
+        nationalIdPlaceholder: 'YYMMDD SSSS CA Z',
+        region: 'Province',
+        regionPlaceholder: 'Gauteng',
+        postal: 'Postal code',
+        postalPlaceholder: '2001'
+      },
+      'united-kingdom': {
+        ids: ['UK Passport', 'Driving Licence', 'Biometric Residence Permit'],
+        nationalId: 'National Insurance number',
+        nationalIdPlaceholder: 'QQ 12 34 56 C',
+        region: 'County',
+        regionPlaceholder: 'Greater London',
+        postal: 'Postcode',
+        postalPlaceholder: 'SW1A 1AA'
+      },
+      'united-states': {
+        ids: ["Driver's License", 'Passport', 'Permanent Resident Card', 'State ID Card', 'Military ID'],
+        nationalId: 'SSN / EIN',
+        nationalIdPlaceholder: 'XXX-XX-XXXX',
+        region: 'State',
+        regionPlaceholder: 'CA',
+        postal: 'ZIP code',
+        postalPlaceholder: '94103'
+      }
+    };
+
+    function updateCountryForm() {
+      const selectedCountry = countryForms[country.value];
+      const currencyCode = currencyByCountry[country.value];
+      idType.replaceChildren(new Option('Select an ID type', ''));
+      idType.disabled = !selectedCountry;
+      ssnNumber.disabled = !selectedCountry;
+      stateName.disabled = !selectedCountry;
+      zipCode.disabled = !selectedCountry;
+      annualIncome.replaceChildren();
+      annualIncome.disabled = !currencyCode;
+
+      if (!selectedCountry) {
+        annualIncome.add(new Option('Select your country first', ''));
+        nationalIdLabel.textContent = 'National ID number';
+        ssnNumber.placeholder = 'Select your country first';
+        stateLabel.textContent = 'State / province';
+        stateName.placeholder = 'Select your country first';
+        postalCodeLabel.textContent = 'Postal code';
+        zipCode.placeholder = 'Select your country first';
+        return;
+      }
+
+      selectedCountry.ids.forEach((id) => idType.add(new Option(id, id)));
+      nationalIdLabel.textContent = selectedCountry.nationalId;
+      ssnNumber.placeholder = selectedCountry.nationalIdPlaceholder;
+      stateLabel.textContent = selectedCountry.region;
+      stateName.placeholder = selectedCountry.regionPlaceholder;
+      postalCodeLabel.textContent = selectedCountry.postal;
+      zipCode.placeholder = selectedCountry.postalPlaceholder;
+      annualIncomeRanges.forEach(([minimum, maximum]) => {
+        const label = maximum === '+'
+          ? `${currencyCode} ${minimum}+`
+          : `${currencyCode} ${minimum} - ${currencyCode} ${maximum}`;
+        annualIncome.add(new Option(label, label));
+      });
+    }
+
+    country.addEventListener('change', updateCountryForm);
+    updateCountryForm();
+
+    const usersAtLoad = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+    const applicantAtLoad = usersAtLoad[usersAtLoad.length - 1];
+    if (applicantAtLoad?.country && countryForms[applicantAtLoad.country]) {
+      country.value = applicantAtLoad.country;
+      updateCountryForm();
+    }
+
+    idType.addEventListener('change', function () {
+      if (idType.value) {
+        const isPassport = /passport/i.test(idType.value);
+        uploadArea.classList.remove('hidden');
+        uploadLabel.textContent = isPassport ? 'Upload passport image' : 'Upload front of ' + idType.value;
+        uploadHint.textContent = isPassport ? 'Upload one image of your passport.' : 'Upload one image of the front and one image of the back.';
+        backUploadField.hidden = isPassport;
+        backUploadField.style.display = isPassport ? 'none' : '';
+        idUpload.required = true;
+        idUploadBack.required = !isPassport;
+        if (isPassport) idUploadBack.value = '';
+      } else {
+        uploadArea.classList.add('hidden');
+        backUploadField.hidden = true;
+        backUploadField.style.display = 'none';
+        idUpload.required = false;
+        idUploadBack.required = false;
+      }
+    });
+
+    if (verificationForm) {
+      verificationForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        if (verificationMessage) {
+          verificationMessage.style.display = 'block';
+        }
+
+        const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+        const lastUser = users[users.length - 1];
+
+        if (lastUser) {
+          const uploadedFile = idUpload?.files?.[0];
+          const uploadedBackFile = idUploadBack?.files?.[0];
+          const saveUser = (documentData, backDocumentData) => {
+          lastUser.status = 'pending';
+          lastUser.country = country.value;
+          lastUser.idType = document.getElementById('idType')?.value || lastUser.idType || '';
+          lastUser.ssn = document.getElementById('ssnNumber')?.value || lastUser.ssn || '';
+          lastUser.dateOfBirth = document.getElementById('dateOfBirth')?.value || lastUser.dateOfBirth || '';
+          lastUser.residentialAddress = document.getElementById('residentialAddress')?.value || lastUser.residentialAddress || '';
+          lastUser.city = document.getElementById('cityName')?.value || lastUser.city || '';
+          lastUser.state = document.getElementById('stateName')?.value || lastUser.state || '';
+          lastUser.zipCode = document.getElementById('zipCode')?.value || lastUser.zipCode || '';
+          lastUser.occupation = document.getElementById('occupation')?.value || lastUser.occupation || '';
+          lastUser.employer = document.getElementById('employer')?.value || lastUser.employer || '';
+          lastUser.sourceOfFunds = document.getElementById('sourceOfFunds')?.value || lastUser.sourceOfFunds || '';
+          lastUser.annualIncome = document.getElementById('annualIncome')?.value || lastUser.annualIncome || '';
+          lastUser.additionalNotes = document.getElementById('additionalNotes')?.value || lastUser.additionalNotes || '';
+          if (documentData) lastUser.idDocument = documentData;
+          if (backDocumentData) lastUser.idDocuments = [documentData, backDocumentData];
+          else delete lastUser.idDocuments;
+          localStorage.setItem('evergreenUsers', JSON.stringify(users));
+          };
+
+          if (uploadedFile) {
+            const readFile = (file) => new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.addEventListener('load', () => resolve({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                dataUrl: reader.result
+              }));
+              reader.readAsDataURL(file);
+            });
+
+            Promise.all([readFile(uploadedFile), uploadedBackFile ? readFile(uploadedBackFile) : Promise.resolve(null)]).then(([documentData, backDocumentData]) => {
+              saveUser(documentData, backDocumentData);
+              setTimeout(() => { window.location.href = 'confirmation.html'; }, 1200);
+            });
+            return;
+          }
+
+          saveUser();
+        }
+
+        setTimeout(() => {
+          window.location.href = 'confirmation.html';
+        }, 1200);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar" id="profileInitials">AM</div>
+        <div>
+          <div class="profile-name" id="profileName">Alex Morgan</div>
+          <div class="profile-caption" id="profileCaption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="active" href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label" id="welcomeLabel">Good morning, Alex</div>
+          <h1>Overview</h1>
+        </div>
+
+        <div class="dashboard-actions">
+          <a class="ghost-button small-button" href="statements.html">Export</a>
+          <a class="nav-button small-button" href="transfers.html">+ Add account</a>
+        </div>
+      </section>
+
+      <section class="summary-grid">
+        <article class="summary-card highlight">
+          <div class="summary-head">
+            <span class="summary-title">Total Balance</span>
+            <span class="summary-icon">↗</span>
+          </div>
+          <div class="summary-amount">$24,780.66</div>
+          <div class="summary-meta">
+            <span class="positive">+12.8% monthly</span>
+            <span class="summary-date">Sep 12, 2026</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Checking</span>
+            <span class="summary-icon">◉</span>
+          </div>
+          <div class="summary-amount small-amount">$8,420.02</div>
+          <div class="summary-meta">
+            <span class="positive">+ $325.70</span>
+            <span class="summary-date">This month</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Savings</span>
+            <span class="summary-icon">✦</span>
+          </div>
+          <div class="summary-amount small-amount">$14,875.34</div>
+          <div class="summary-meta">
+            <span class="positive">+ $260.00</span>
+            <span class="summary-date">Goal progress</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Card</span>
+            <span class="summary-icon">♥</span>
+          </div>
+          <div class="summary-amount small-amount">$1,485.30</div>
+          <div class="summary-meta">
+            <span class="negative">- $86.90</span>
+            <span class="summary-date">Monthly limit</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel account-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Accounts</span>
+              <h2>All Accounts</h2>
+            </div>
+            <a href="#" class="panel-link">Manage</a>
+          </div>
+
+          <div class="account-list">
+            <div class="account-row-dashboard">
+              <div>
+                <span class="account-name">Key Savings</span>
+                <span class="account-detail">•••• 1248</span>
+              </div>
+              <span class="account-balance">$14,875.34</span>
+            </div>
+            <div class="account-row-dashboard">
+              <div>
+                <span class="account-name">Everyday Checking</span>
+                <span class="account-detail">•••• 5910</span>
+              </div>
+              <span class="account-balance">$8,420.02</span>
+            </div>
+            <div class="account-row-dashboard">
+              <div>
+                <span class="account-name">Key Rewards</span>
+                <span class="account-detail">•••• 2202</span>
+              </div>
+              <span class="account-balance">$1,485.30</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card-panel activity-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Activity</span>
+              <h2>Recent Transactions</h2>
+            </div>
+            <a href="#" class="panel-link">View all</a>
+          </div>
+
+          <div class="transaction-list">
+            <div class="transaction-row">
+              <span class="transaction-icon income">+</span>
+              <div>
+                <span class="transaction-title">Direct Deposit</span>
+                <span class="transaction-meta">Sep 12 • Payroll</span>
+              </div>
+              <span class="transaction-amount positive">+$2,450.00</span>
+            </div>
+            <div class="transaction-row">
+              <span class="transaction-icon expense">−</span>
+              <div>
+                <span class="transaction-title">Green Grocery</span>
+                <span class="transaction-meta">Sep 11 • Card payment</span>
+              </div>
+              <span class="transaction-amount negative">−$68.24</span>
+            </div>
+            <div class="transaction-row">
+              <span class="transaction-icon transfer">⇆</span>
+              <div>
+                <span class="transaction-title">Transfer to Savings</span>
+                <span class="transaction-meta">Sep 10 • Internal</span>
+              </div>
+              <span class="transaction-amount">−$260.00</span>
+            </div>
+            <div class="transaction-row">
+              <span class="transaction-icon income">+</span>
+              <div>
+                <span class="transaction-title">Credit Reward</span>
+                <span class="transaction-meta">Sep 08 • Cashback</span>
+              </div>
+              <span class="transaction-amount positive">+$12.86</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="premium-grid">
+        <section class="card-panel limit-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Transaction limits</span>
+              <h2>Spending Controls</h2>
+            </div>
+            <a href="#" class="panel-link">Edit</a>
+          </div>
+
+          <div class="limit-card">
+            <div class="limit-line">
+              <span class="limit-label">Daily outgoing transfer</span>
+              <span class="limit-value">$5,000</span>
+            </div>
+            <div class="limit-line">
+              <span class="limit-label">Card spending</span>
+              <span class="limit-value">$2,500</span>
+            </div>
+            <div class="limit-line">
+              <span class="limit-label">Wire transfer</span>
+              <span class="limit-value">$10,000</span>
+            </div>
+          </div>
+
+          <div class="limit-actions">
+            <a class="pay-button small-pay" href="#">Update limits</a>
+          </div>
+        </section>
+
+        <section class="card-panel pending-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Pending transactions</span>
+              <h2>Incoming & Outgoing</h2>
+            </div>
+            <a href="#" class="panel-link">All</a>
+          </div>
+
+          <div class="pending-list">
+            <div class="pending-row">
+              <span class="pending-title">Incoming Transfer</span>
+              <span class="pending-meta">Chase Bank • Sep 14</span>
+              <span class="pending-amount positive">+$1,500.00</span>
+              <span class="pending-status">Pending</span>
+            </div>
+            <div class="pending-row">
+              <span class="pending-title">Outgoing Bill Pay</span>
+              <span class="pending-meta">Utility • Sep 15</span>
+              <span class="pending-amount negative">−$184.50</span>
+              <span class="pending-status">Pending</span>
+            </div>
+            <div class="pending-row">
+              <span class="pending-title">Incoming Wire</span>
+              <span class="pending-meta">Global Operations • Sep 16</span>
+              <span class="pending-amount positive">+$3,200.00</span>
+              <span class="pending-status">Pending</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="dashboard-bottom">
+        <section class="card-panel goal-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Savings goals</span>
+              <h2>Monthly Goal</h2>
+            </div>
+            <a href="#" class="panel-link">Add goal</a>
+          </div>
+
+          <div class="goal-progress">
+            <div class="goal-top">
+              <span class="goal-name">Vacation Fund</span>
+              <span class="goal-amount">$1,420 / $2,000</span>
+            </div>
+            <div class="progress-bar">
+              <span class="progress-fill"></span>
+            </div>
+            <div class="goal-date">76% complete</div>
+          </div>
+        </section>
+
+        <section class="card-panel card-panel-pay">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">International wires</span>
+              <h2>Global Transfers</h2>
+            </div>
+            <a href="#" class="panel-link">New wire</a>
+          </div>
+
+          <div class="wire-options">
+            <div class="wire-row">
+              <span class="wire-label">Transfer to</span>
+              <span class="wire-value">United Kingdom</span>
+            </div>
+            <div class="wire-row">
+              <span class="wire-label">Rate</span>
+              <span class="wire-value">1 USD = 0.81 GBP</span>
+            </div>
+            <div class="wire-row">
+              <span class="wire-label">Delivery</span>
+              <span class="wire-value">1 business day</span>
+            </div>
+          </div>
+
+          <div class="quick-pay">
+            <a class="pay-button" href="transfers.html">Send wire</a>
+            <a class="pay-button outline-button" href="transfers.html">Add recipient</a>
+            <a class="pay-button deposit-button" href="transfers.html">Deposit</a>
+            <a class="pay-button outline-button" href="loans.html">Loan</a>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+    const currentAccount = currentUser ? (accountStore[currentUser.email] || { balance: 0, savings: 0, cards: [], history: [] }) : { balance: 0, savings: 0, cards: [], history: [] };
+    const checkingAccountNumber = currentAccount.checkingAccountNumber || currentUser?.checkingAccountNumber || '—';
+    const savingsAccountNumber = currentAccount.savingsAccountNumber || currentUser?.savingsAccountNumber || '—';
+
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    function getFullName(user) {
+      if (!user) return 'Alex Morgan';
+      const firstName = (user.firstName || '').trim();
+      const lastName = (user.lastName || '').trim();
+      return [firstName, lastName].filter(Boolean).join(' ') || 'Alex Morgan';
+    }
+
+    function getInitials(name) {
+      const parts = name.split(' ').filter(Boolean);
+      return (parts[0]?.[0] || 'A') + (parts[1]?.[0] || '') || 'AM';
+    }
+
+    function formatCurrency(value) {
+      return window.EvergreenCurrency.format(value);
+    }
+
+    function setEmptyStateText(selector, text) {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.textContent = text;
+      }
+    }
+
+    if (currentUser) {
+      const fullName = getFullName(currentUser);
+      const initials = getInitials(fullName).toUpperCase();
+      const welcomeLabel = document.getElementById('welcomeLabel');
+      const profileName = document.getElementById('profileName');
+      const profileCaption = document.getElementById('profileCaption');
+      const profileInitials = document.getElementById('profileInitials');
+
+      if (welcomeLabel) {
+        welcomeLabel.textContent = 'Good morning, ' + fullName;
+      }
+
+      if (profileName) {
+        profileName.textContent = fullName;
+      }
+
+      if (profileCaption) {
+        profileCaption.textContent = currentUser.accountType || 'Primary Savings';
+      }
+
+      if (profileInitials) {
+        profileInitials.textContent = initials;
+      }
+    }
+
+    const hasFunding = Number(currentAccount.balance || 0) > 0 || Number(currentAccount.savings || 0) > 0 || (currentAccount.cards || []).length > 0 || (currentAccount.history || []).length > 0;
+
+    if (!hasFunding) {
+      setEmptyStateText('.summary-card.highlight .summary-amount', '—');
+      setEmptyStateText('.summary-card:nth-of-type(2) .summary-amount', '—');
+      setEmptyStateText('.summary-card:nth-of-type(3) .summary-amount', '—');
+      setEmptyStateText('.summary-card:nth-of-type(4) .summary-amount', '—');
+      setEmptyStateText('.account-balance', '—');
+      const accountList = document.querySelector('.account-list');
+      if (accountList) {
+        accountList.innerHTML = `
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">Everyday Checking</span>
+              <span class="account-detail">${checkingAccountNumber}</span>
+            </div>
+            <span class="account-balance">$0.00</span>
+          </div>
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">Key Savings</span>
+              <span class="account-detail">${savingsAccountNumber}</span>
+            </div>
+            <span class="account-balance">$0.00</span>
+          </div>
+        `;
+      }
+      const transactionList = document.querySelector('.transaction-list');
+      if (transactionList) {
+        transactionList.innerHTML = '<div class="transaction-row"><span class="transaction-icon income">•</span><div><span class="transaction-title">No recent history</span><span class="transaction-meta">Funds will appear after transfer</span></div><span class="transaction-amount">—</span></div>';
+      }
+      const pendingList = document.querySelector('.pending-list');
+      if (pendingList) {
+        pendingList.innerHTML = '<div class="pending-row"><span class="pending-title">No pending transfers</span><span class="pending-meta">Waiting for admin funding</span><span class="pending-amount">—</span><span class="pending-status">Awaiting</span></div>';
+      }
+    } else {
+      const totalBalance = Number(currentAccount.balance || 0) + Number(currentAccount.savings || 0);
+      const balanceEl = document.querySelector('.summary-card.highlight .summary-amount');
+      if (balanceEl) balanceEl.textContent = formatCurrency(totalBalance);
+
+      const checkingEl = document.querySelector('.summary-card:nth-of-type(2) .summary-amount');
+      if (checkingEl) checkingEl.textContent = formatCurrency(currentAccount.balance || 0);
+
+      const savingsEl = document.querySelector('.summary-card:nth-of-type(3) .summary-amount');
+      if (savingsEl) savingsEl.textContent = formatCurrency(currentAccount.savings || 0);
+
+      const cardEl = document.querySelector('.summary-card:nth-of-type(4) .summary-amount');
+      if (cardEl) {
+        const cardValue = Array.isArray(currentAccount.cards) && currentAccount.cards.length ? currentAccount.cards[0].limit || 0 : 0;
+        cardEl.textContent = cardValue ? formatCurrency(cardValue) : '—';
+      }
+
+      const accountList = document.querySelector('.account-list');
+      if (accountList) {
+        const accountRows = [
+          {
+            name: 'Everyday Checking',
+            detail: checkingAccountNumber,
+            value: formatCurrency(currentAccount.balance || 0)
+          },
+          {
+            name: 'Key Savings',
+            detail: savingsAccountNumber,
+            value: formatCurrency(currentAccount.savings || 0)
+          }
+        ].map((item) => `
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">${item.name}</span>
+              <span class="account-detail">${item.detail}</span>
+            </div>
+            <span class="account-balance">${item.value}</span>
+          </div>
+        `).join('');
+
+        accountList.innerHTML = accountRows;
+      }
+
+      const transactionList = document.querySelector('.transaction-list');
+      if (transactionList) {
+        const history = Array.isArray(currentAccount.history) && currentAccount.history.length ? currentAccount.history : [];
+        if (history.length) {
+          transactionList.innerHTML = history.slice(0, 4).map((item) => {
+            const sign = Number(item.amount) >= 0 ? '+' : '−';
+            const amountText = `${sign}${formatCurrency(Math.abs(Number(item.amount || 0)))}`;
+            const tone = Number(item.amount) >= 0 ? 'positive' : 'negative';
+            const icon = Number(item.amount) >= 0 ? '+' : '−';
+            const status = String(item.status || '').toLowerCase();
+            const statusText = status === 'pending' ? ' • Pending' : status === 'hold' ? ' • On hold' : status === 'available' ? ' • Available' : '';
+            return `
+              <div class="transaction-row">
+                <span class="transaction-icon ${Number(item.amount) >= 0 ? 'income' : 'expense'}">${icon}</span>
+                <div>
+                  <span class="transaction-title">${item.title || 'Transfer'}</span>
+                  <span class="transaction-meta">${item.meta || item.note || 'Recent activity'}${statusText}</span>
+                </div>
+                <span class="transaction-amount ${tone}">${amountText}</span>
+              </div>
+            `;
+          }).join('');
+        } else {
+          transactionList.innerHTML = '<div class="transaction-row"><span class="transaction-icon income">•</span><div><span class="transaction-title">No recent history</span><span class="transaction-meta">Activity will appear after transfer</span></div><span class="transaction-amount">—</span></div>';
+        }
+      }
+    }
+
+    const pendingList = document.querySelector('.pending-list');
+    const userEmailKey = (currentUser?.email || '').trim().toLowerCase();
+    const pendingTransfers = userEmailKey ? JSON.parse(localStorage.getItem('evergreenTransfers') || '[]').filter((transfer) => {
+      const status = String(transfer.status || '').toLowerCase();
+      return transfer.userEmail && transfer.userEmail.toLowerCase() === userEmailKey && ['pending', 'hold'].includes(status);
+    }) : [];
+
+    if (pendingList) {
+      pendingList.innerHTML = pendingTransfers.length ? pendingTransfers.slice(0, 4).map((transfer) => {
+        const status = String(transfer.status || 'pending').toLowerCase();
+        const statusLabel = status === 'hold' ? 'On hold' : 'Pending';
+        return `
+          <div class="pending-row">
+            <span class="pending-title">${transfer.note || 'Admin transfer'}</span>
+            <span class="pending-meta">${transfer.source || 'Administrator'} • ${transfer.recipient || 'Your account'}</span>
+            <span class="pending-amount positive">+${formatCurrency(transfer.amount || 0)}</span>
+            <span class="pending-status">${statusLabel}</span>
+          </div>
+        `;
+      }).join('') : '<div class="pending-row"><span class="pending-title">No pending transfers</span><span class="pending-meta">Waiting for admin funding</span><span class="pending-amount">—</span><span class="pending-status">Awaiting</span></div>';
+    }
+  </script>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

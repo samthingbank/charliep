@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Cards</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a class="active" href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Cards</h1>
+        </div>
+        <div class="dashboard-actions">
+          <a class="nav-button small-button" href="#">+ Add card</a>
+        </div>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel" id="virtualCardPanel">
+          <div id="cardRequestStatus" class="request-status-banner" style="display:none;">Request sent</div>
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Card center</span>
+              <h2>Key Rewards</h2>
+            </div>
+            <a href="#" class="panel-link" id="toggleCardDetails">Details</a>
+          </div>
+
+          <div class="card-click-surface" id="cardClickSurface" aria-label="View virtual card details">
+            <div class="credit-card">
+              <div class="credit-card-top">
+                <span class="credit-title">Key Rewards</span>
+                <span class="credit-chip">•••• 2202</span>
+              </div>
+              <div class="credit-card-number">•••• 2202</div>
+              <div class="credit-card-bottom">
+                <span>Alex Morgan</span>
+                <span>12/29</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-details" id="cardDetails" hidden>
+            <div class="card-detail-row">
+              <span>Card holder</span>
+              <strong>Alex Morgan</strong>
+            </div>
+            <div class="card-detail-row">
+              <span>Account</span>
+              <strong>Primary Savings</strong>
+            </div>
+            <div class="card-detail-row">
+              <span>Expiry</span>
+              <strong>12/29</strong>
+            </div>
+            <div class="card-detail-row">
+              <span>Card ID</span>
+              <strong>EVG-2202</strong>
+            </div>
+          </div>
+
+          <div class="card-stats">
+            <div class="card-stat-row">
+              <span class="card-stat-label">Available credit</span>
+              <span class="card-stat-value">$2,500.00</span>
+            </div>
+            <div class="card-stat-row">
+              <span class="card-stat-label">Cashback</span>
+              <span class="card-stat-value positive">$12.86</span>
+            </div>
+          </div>
+
+          <div class="quick-pay">
+            <a class="pay-button" href="#">Freeze card</a>
+            <a class="pay-button outline-button" href="#">Card settings</a>
+          </div>
+        </section>
+
+        <section class="card-panel" id="recentSpendingPanel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Card activity</span>
+              <h2>Recent spending</h2>
+            </div>
+            <a href="#" class="panel-link">View all</a>
+          </div>
+
+          <div class="transaction-list" id="transactionList"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+    }
+
+    renderCurrentUserProfile();
+
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function formatCurrency(value) {
+      return window.EvergreenCurrency.format(value);
+    }
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    function addCardRequest() {
+      if (!currentUser) return;
+
+      const requestStore = JSON.parse(localStorage.getItem('evergreenCardRequests') || '[]');
+      const emailKey = (currentUser.email || '').trim().toLowerCase();
+      const fullName = `${(currentUser.firstName || '').trim()} ${(currentUser.lastName || '').trim()}`.trim() || 'User';
+
+      const existingRequest = requestStore.find((request) => (request.email || '').trim().toLowerCase() === emailKey);
+      if (!existingRequest) {
+        requestStore.push({
+          id: Date.now(),
+          email: emailKey,
+          user: fullName,
+          status: 'pending',
+          requestedAt: new Date().toISOString()
+        });
+      }
+
+      localStorage.setItem('evergreenCardRequests', JSON.stringify(requestStore));
+      if (window.EvergreenActivity) {
+        window.EvergreenActivity.log(currentUser, 'Card requested', 'Requested a new virtual card.', 'card');
+      }
+
+      const statusBanner = document.getElementById('cardRequestStatus');
+      if (statusBanner) {
+        statusBanner.textContent = 'Request sent';
+        statusBanner.style.display = 'flex';
+      }
+    }
+
+    function renderCardInfo() {
+      const cardPanel = document.getElementById('virtualCardPanel');
+      const spendingPanel = document.getElementById('recentSpendingPanel');
+      if (!cardPanel || !currentUser) return;
+
+      const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+      const emailKey = (currentUser.email || '').trim().toLowerCase();
+      const account = emailKey ? (accountStore[emailKey] || {}) : {};
+      const cards = Array.isArray(account.cards) ? account.cards : [];
+
+      const surface = cardPanel.querySelector('#cardClickSurface');
+      const details = cardPanel.querySelector('#cardDetails');
+      const stats = cardPanel.querySelector('.card-stats');
+      const actions = cardPanel.querySelector('.quick-pay');
+      const transactionList = spendingPanel ? spendingPanel.querySelector('#transactionList') : null;
+
+      if (!cards.length) {
+        if (spendingPanel) {
+          spendingPanel.innerHTML = `
+            <div class="panel-heading">
+              <div>
+                <span class="panel-label">Card activity</span>
+                <h2>Recent spending</h2>
+              </div>
+              <a href="#" class="panel-link">View all</a>
+            </div>
+            <div class="card-empty-state card-empty-activity">
+              <div class="card-empty-inner">
+                <div class="card-empty-icon">◌</div>
+                <div class="card-empty-title">No card activity</div>
+                <div class="card-empty-copy">Recent spending will appear here once your card is active.</div>
+              </div>
+            </div>
+          `;
+        }
+        cardPanel.querySelector('h2').textContent = 'No virtual card yet';
+        if (surface) {
+          surface.innerHTML = `
+            <div class="card-empty-state">
+              <div class="card-empty-inner">
+                <div class="card-empty-icon">◌</div>
+                <div class="card-empty-title">Waiting for bank</div>
+                <div class="card-empty-copy">Your virtual card is not available yet.<br>We are waiting for the bank to create it.</div>
+              </div>
+            </div>
+          `;
+        }
+        if (details) details.setAttribute('hidden', 'hidden');
+        if (stats) stats.style.display = 'none';
+        if (actions) actions.style.display = 'none';
+        return;
+      }
+
+      if (spendingPanel && transactionList) {
+        spendingPanel.innerHTML = `
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Card activity</span>
+              <h2>Recent spending</h2>
+            </div>
+            <a href="#" class="panel-link">View all</a>
+          </div>
+          <div class="card-empty-state card-empty-activity">
+            <div class="card-empty-inner">
+              <div class="card-empty-icon">◌</div>
+              <div class="card-empty-title">No card activity</div>
+              <div class="card-empty-copy">Recent spending will appear here once your card is active.</div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (stats) stats.style.display = 'block';
+      if (actions) actions.style.display = 'flex';
+
+      const card = cards[0];
+      const metadataStatus = String(card.status || 'active').toLowerCase();
+      const cardStatusMap = {
+        active: { label: 'Active', className: 'status active' },
+        pending: { label: 'Pending', className: 'status review' },
+        frozen: { label: 'Frozen', className: 'status frozen' },
+        blocked: { label: 'Blocked', className: 'status locked' }
+      };
+      const statusState = cardStatusMap[metadataStatus] || cardStatusMap.active;
+      const fullName = `${(currentUser.firstName || '').trim()} ${(currentUser.lastName || '').trim()}`.trim() || 'Alex Morgan';
+      const limitValue = Number(card.limit || 2500);
+      const cashbackValue = Number(card.cashback || 12.86);
+      const lastFour = card.lastFour || '2202';
+      const expiry = card.expiry || '12/29';
+      const accountName = account.accountType || 'Primary Savings';
+
+      cardPanel.querySelector('h2').textContent = card.cardName || 'Key Rewards';
+      cardPanel.querySelector('.credit-title').textContent = card.cardName || 'Key Rewards';
+      cardPanel.querySelector('.credit-chip').textContent = `•••• ${lastFour}`;
+      cardPanel.querySelector('.credit-card-number').textContent = `•••• ${lastFour}`;
+      cardPanel.querySelector('.credit-card-bottom span:first-child').textContent = fullName;
+      cardPanel.querySelector('.credit-card-bottom span:last-child').textContent = expiry;
+      cardPanel.querySelector('.card-stat-value').textContent = formatCurrency(limitValue);
+      cardPanel.querySelectorAll('.card-stat-value')[1].textContent = formatCurrency(cashbackValue);
+      cardPanel.querySelectorAll('.card-stat-value')[1].classList.remove('positive');
+      cardPanel.querySelectorAll('.card-stat-value')[1].classList.add('positive');
+      if (surface) {
+        surface.innerHTML = `
+          <div class="credit-card">
+            <div class="credit-card-top">
+              <span class="credit-title">${card.cardName || 'Key Rewards'}</span>
+              <span class="credit-chip">•••• ${lastFour}</span>
+            </div>
+            <div style="margin-top: 18px; display: flex; justify-content: flex-start;">
+              <span class="${statusState.className}">${statusState.label}</span>
+            </div>
+            <div class="credit-card-number">•••• ${lastFour}</div>
+            <div class="credit-card-bottom">
+              <span>${fullName}</span>
+              <span>${expiry}</span>
+            </div>
+          </div>
+        `;
+      }
+      if (details) {
+        details.innerHTML = `
+          <div class="card-detail-row">
+            <span>Card holder</span>
+            <strong>${fullName}</strong>
+          </div>
+          <div class="card-detail-row">
+            <span>Account</span>
+            <strong>${accountName}</strong>
+          </div>
+          <div class="card-detail-row">
+            <span>Card status</span>
+            <strong><span class="${statusState.className}">${statusState.label}</span></strong>
+          </div>
+          <div class="card-detail-row">
+            <span>Expiry</span>
+            <strong>${expiry}</strong>
+          </div>
+          <div class="card-detail-row">
+            <span>Card ID</span>
+            <strong>EVG-${lastFour}</strong>
+          </div>
+        `;
+        details.removeAttribute('hidden');
+      }
+    }
+
+    const cardClickSurface = document.getElementById('cardClickSurface');
+    const cardDetails = document.getElementById('cardDetails');
+    const toggleCardDetails = document.getElementById('toggleCardDetails');
+
+    if (cardClickSurface && cardDetails) {
+      cardClickSurface.addEventListener('click', () => {
+        const isHidden = cardDetails.hasAttribute('hidden');
+        cardDetails.toggleAttribute('hidden', !isHidden);
+      });
+    }
+
+    if (toggleCardDetails && cardDetails) {
+      toggleCardDetails.addEventListener('click', (event) => {
+        event.preventDefault();
+        cardDetails.toggleAttribute('hidden');
+      });
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    const addCardButton = document.querySelector('.nav-button.small-button');
+    if (addCardButton) {
+      addCardButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        addCardRequest();
+      });
+    }
+
+    renderCardInfo();
+  </script>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

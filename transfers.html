@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Transfers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a class="active" href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Transfers</h1>
+        </div>
+        <div class="dashboard-actions">
+          <a class="nav-button small-button" href="#transferPageForm" id="newTransferButton">+ New transfer</a>
+        </div>
+      </section>
+
+      <section class="dashboard-content">
+        <section id="transferPageForm" class="card-panel transfer-panel" style="margin-bottom: 24px;">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Transfer page</span>
+              <h2>Send to external account</h2>
+            </div>
+          </div>
+
+          <form id="transferPageFormElement" style="display: grid; gap: 16px; margin-top: 14px;">
+            <div class="internal-transfer-accounts">
+              <label class="internal-account-field">
+                From account
+                <select id="pageTransferFromAccount" class="internal-account-select">
+                  <option value="checking">Everyday Checking</option>
+                  <option value="savings">Key Savings</option>
+                </select>
+              </label>
+
+              <label class="internal-account-field">
+                To account
+                <select id="pageTransferToAccount" class="internal-account-select">
+                  <option value="savings">Key Savings</option>
+                  <option value="checking">Everyday Checking</option>
+                  <option value="external">External account</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="pageExternalTransferFields" style="display: none; gap: 14px;">
+              <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+                Name
+                <input id="pageExternalRecipientName" type="text" placeholder="Recipient full name" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+              </label>
+
+              <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+                <span id="pageExternalRoutingLabel">Routing</span>
+                <input id="pageExternalRoutingNumber" type="text" placeholder="Routing number" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+              </label>
+
+              <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+                Account
+                <input id="pageExternalAccountNumber" type="text" placeholder="Account number" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+              </label>
+            </div>
+
+            <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+              <span id="pageTransferAmountLabel">Amount</span>
+              <input id="pageTransferAmountInput" type="number" min="1" step="0.01" placeholder="0.00" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+            </label>
+
+            <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+              Details
+              <textarea id="pageTransferNote" rows="3" placeholder="Transfer details" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text); resize: vertical;"></textarea>
+            </label>
+
+            <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+              Delivery
+              <select id="pageTransferDelivery" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);">
+                <option>Same day</option>
+                <option>Next business day</option>
+                <option>Scheduled</option>
+              </select>
+            </label>
+
+            <div id="pageTransferError" style="display: none; padding: 12px 14px; border-radius: 12px; background: rgba(186, 98, 91, 0.08); color: #a34943; border: 1px solid rgba(186, 98, 91, 0.2); font-weight: 700;">
+              Not enough money.
+            </div>
+
+            <div id="pageTransferSuccessMessage" style="display: none; padding: 12px 14px; border-radius: 12px; background: rgba(30, 182, 110, 0.12); color: #0b6b42; border: 1px solid rgba(30, 182, 110, 0.35); font-weight: 700;">
+              Transfer submitted successfully.
+            </div>
+
+            <div class="logout-modal-actions">
+              <button type="button" class="ghost-button" id="pageTransferCancel">Cancel</button>
+              <button id="pageTransferSubmit" type="submit" class="pay-button">Send transfer</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card-panel transfer-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Transfer center</span>
+              <h2>Send money</h2>
+            </div>
+            <a href="#" class="panel-link">Scheduled</a>
+          </div>
+
+          <div class="transfer-form" id="transferFormSummary">
+            <div class="transfer-row">
+              <span class="transfer-label">From</span>
+              <span class="transfer-value" id="transferFromLabel">—</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">To</span>
+              <span class="transfer-value" id="transferToLabel">—</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">Amount</span>
+              <span class="transfer-value" id="transferAmountLabel">—</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">Delivery</span>
+              <span class="transfer-value" id="transferDeliveryLabel">—</span>
+            </div>
+
+            <div class="quick-pay transfer-buttons">
+              <a class="pay-button" href="#">Send transfer</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Transfer activity</span>
+              <h2>Recent transfers</h2>
+            </div>
+            <a href="#" class="panel-link">View all</a>
+          </div>
+
+          <div class="transaction-list" id="transferActivityList">
+            <div class="transaction-row empty-state-row">
+              <span class="transaction-icon transfer">—</span>
+              <div>
+                <span class="transaction-title">No transfers yet</span>
+                <span class="transaction-meta">Your transfer activity will appear here</span>
+              </div>
+              <span class="transaction-amount">$0.00</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+    }
+
+    renderCurrentUserProfile();
+
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+    const transferActivityList = document.getElementById('transferActivityList');
+    const transferFromLabel = document.getElementById('transferFromLabel');
+    const transferToLabel = document.getElementById('transferToLabel');
+    const transferAmountLabel = document.getElementById('transferAmountLabel');
+    const transferDeliveryLabel = document.getElementById('transferDeliveryLabel');
+    const transferForm = document.getElementById('transferForm');
+    const transferPageForm = document.getElementById('transferPageFormElement');
+    const transferModal = document.getElementById('newTransferModal');
+    const newTransferButton = document.getElementById('newTransferButton');
+    const closeTransferModal = document.getElementById('closeTransferModal');
+    const cancelTransfer = document.getElementById('cancelTransfer');
+    const recipientSelect = document.getElementById('transferRecipient');
+    const externalTransferToggle = document.getElementById('externalTransferToggle');
+    const externalTransferFields = document.getElementById('externalTransferFields');
+    const transferSuccessMessage = document.getElementById('transferSuccessMessage');
+    const pageExternalTransferFields = document.getElementById('pageExternalTransferFields');
+    const pageTransferFromAccount = document.getElementById('pageTransferFromAccount');
+    const pageTransferToAccount = document.getElementById('pageTransferToAccount');
+    const pageTransferError = document.getElementById('pageTransferError');
+    const pageTransferSuccessMessage = document.getElementById('pageTransferSuccessMessage');
+    const pageTransferSubmit = document.getElementById('pageTransferSubmit');
+    const pageExternalRoutingLabel = document.getElementById('pageExternalRoutingLabel');
+    const externalRoutingLabel = document.getElementById('externalRoutingLabel');
+    const pageTransferAmountLabel = document.getElementById('pageTransferAmountLabel');
+    const transferAmountLabelText = document.getElementById('transferAmountLabelText');
+    const pageTransferAmountInput = document.getElementById('pageTransferAmountInput');
+    const transferAmountInput = document.getElementById('transferAmountInput');
+    const pageExternalRoutingNumber = document.getElementById('pageExternalRoutingNumber');
+    const externalRoutingNumber = document.getElementById('externalRoutingNumber');
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function formatCurrency(value) {
+      return window.EvergreenCurrency.format(value);
+    }
+
+    const transferCountrySettings = {
+      australia: { code: 'AUD', routingLabel: 'BSB number', routingPlaceholder: '6-digit BSB number' },
+      canada: { code: 'CAD', routingLabel: 'Transit / institution number', routingPlaceholder: 'Transit and institution number' },
+      india: { code: 'INR', routingLabel: 'IFSC code', routingPlaceholder: '11-character IFSC code' },
+      nigeria: { code: 'NGN', routingLabel: 'Bank code', routingPlaceholder: 'Bank code' },
+      'south-africa': { code: 'ZAR', routingLabel: 'Branch code', routingPlaceholder: '6-digit branch code' },
+      'united-kingdom': { code: 'GBP', routingLabel: 'Sort code', routingPlaceholder: '6-digit sort code' },
+      'united-states': { code: 'USD', routingLabel: 'Routing number', routingPlaceholder: '9-digit routing number' }
+    };
+
+    function getCurrentUserCountry() {
+      const email = (currentUser?.email || '').trim().toLowerCase();
+      const storedUser = JSON.parse(localStorage.getItem('evergreenUsers') || '[]')
+        .find((user) => (user.email || '').trim().toLowerCase() === email);
+      return accountStore[email]?.country || currentUser?.country || storedUser?.country || 'united-states';
+    }
+
+    function applyTransferCountrySettings() {
+      const settings = transferCountrySettings[getCurrentUserCountry()] || transferCountrySettings['united-states'];
+      const amountLabel = `Amount (${settings.code})`;
+      const amountPlaceholder = `0.00 ${settings.code}`;
+
+      [pageExternalRoutingLabel, externalRoutingLabel].forEach((element) => {
+        if (element) element.textContent = settings.routingLabel;
+      });
+      [pageExternalRoutingNumber, externalRoutingNumber].forEach((element) => {
+        if (element) element.placeholder = settings.routingPlaceholder;
+      });
+      [pageTransferAmountLabel, transferAmountLabelText].forEach((element) => {
+        if (element) element.textContent = amountLabel;
+      });
+      [pageTransferAmountInput, transferAmountInput].forEach((element) => {
+        if (element) element.placeholder = amountPlaceholder;
+      });
+    }
+
+    applyTransferCountrySettings();
+
+    function getUserEmailKey() {
+      return currentUser ? (currentUser.email || '').trim().toLowerCase() : '';
+    }
+
+    function populateRecipients() {
+      if (!recipientSelect) return;
+
+      const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+      const activeUsers = users.filter((user) => (user.status || '').toLowerCase() === 'accepted' && (user.email || '').toLowerCase() !== getUserEmailKey());
+
+      if (!activeUsers.length) {
+        recipientSelect.innerHTML = '<option value="">No approved users available</option>';
+        return;
+      }
+
+      recipientSelect.innerHTML = '<option value="">Select recipient</option>' + activeUsers.map((user) => {
+        const fullName = `${(user.firstName || '').trim()} ${(user.lastName || '').trim()}`.trim() || (user.email || 'User');
+        return `<option value="${fullName}">${fullName}</option>`;
+      }).join('');
+    }
+
+    function renderTransfers() {
+      const email = getUserEmailKey();
+      const transferHistory = email ? JSON.parse(localStorage.getItem('evergreenTransfers') || '[]').filter((item) => (item.userEmail || '').toLowerCase() === email) : [];
+      const account = email ? (accountStore[email] || { balance: 0, savings: 0, cards: [], history: [] }) : { balance: 0, savings: 0, cards: [], history: [] };
+
+      if (transferFromLabel) {
+        transferFromLabel.textContent = account.checkingAccountNumber ? `Everyday Checking •••• ${String(account.checkingAccountNumber).slice(-4)}` : '—';
+      }
+      if (transferToLabel) {
+        transferToLabel.textContent = transferHistory.length ? transferHistory[0].recipient : '—';
+      }
+      if (transferAmountLabel) {
+        transferAmountLabel.textContent = transferHistory.length ? formatCurrency(transferHistory[0].amount) : '—';
+      }
+      if (transferDeliveryLabel) {
+        transferDeliveryLabel.textContent = transferHistory.length ? (transferHistory[0].delivery || 'Same day') : '—';
+      }
+
+      if (!transferHistory.length) {
+        if (transferActivityList) {
+          transferActivityList.innerHTML = `
+            <div class="transaction-row empty-state-row">
+              <span class="transaction-icon transfer">—</span>
+              <div>
+                <span class="transaction-title">No transfers yet</span>
+                <span class="transaction-meta">Your transfer activity will appear here</span>
+              </div>
+              <span class="transaction-amount">$0.00</span>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      if (transferActivityList) {
+        transferActivityList.innerHTML = transferHistory.slice(0, 6).map((transfer) => {
+          const directionClass = transfer.direction === 'incoming' ? 'income' : 'transfer';
+          const directionText = transfer.direction === 'incoming' ? '+' : '⇆';
+          const amountClass = transfer.direction === 'incoming' ? 'positive' : '';
+          const amountPrefix = transfer.direction === 'incoming' ? '+' : '−';
+          const transferStatus = String((transfer.status || 'approved')).toLowerCase();
+          const statusLabel = transferStatus === 'pending' ? 'Pending approval' : transferStatus === 'available' ? 'Available' : transferStatus === 'hold' ? 'On hold' : transferStatus === 'blocked' ? 'Blocked' : transferStatus === 'rejected' || transferStatus === 'reject' ? 'Rejected' : transferStatus === 'cancelled' ? 'Cancelled' : transferStatus === 'review' ? 'Under review' : transferStatus === 'approved' ? 'Approved' : 'Completed';
+          const transferTitle = transfer.title || transfer.note || `${transfer.source || 'Account'} to ${transfer.recipient || 'recipient'}`;
+
+          return `
+            <div class="transaction-row">
+              <span class="transaction-icon ${directionClass}">${directionText}</span>
+              <div>
+                <span class="transaction-title">${transferTitle}</span>
+                <span class="transaction-meta">From ${transfer.source || 'your account'} to ${transfer.recipient || 'recipient'} • ${transfer.dateLabel || 'Recent'} • ${transfer.channel || 'Internal'} • ${statusLabel}</span>
+              </div>
+              <span class="transaction-amount ${amountClass}">${amountPrefix}${formatCurrency(transfer.amount)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function getAccountBalanceForUser(emailKey) {
+      const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+      const account = emailKey ? (accountStore[emailKey] || { balance: 0, savings: 0, cards: [], history: [] }) : { balance: 0, savings: 0, cards: [], history: [] };
+      return {
+        ...account,
+        balance: Number(account.balance || 0)
+      };
+    }
+
+    function applyTransferBalanceValidation(email, amount, messageTarget) {
+      const accountState = getAccountBalanceForUser(email);
+      const availableBalance = Number(accountState.balance || 0);
+
+      if (amount > availableBalance) {
+        if (messageTarget) {
+          messageTarget.textContent = `Not enough money. Your available balance is ${formatCurrency(availableBalance)}.`;
+          messageTarget.style.display = 'block';
+        }
+        return { allowed: false, availableBalance, updatedBalance: availableBalance };
+      }
+
+      if (messageTarget) {
+        messageTarget.style.display = 'none';
+      }
+
+      const updatedBalance = availableBalance - amount;
+      const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+      const updatedAccount = {
+        ...(accountStore[email] || { checkingAccountNumber: '', savings: 0, cards: [], history: [] }),
+        balance: updatedBalance,
+        history: [
+          {
+            type: 'Transfer submitted',
+            amount,
+            status: 'pending',
+            date: new Date().toISOString()
+          },
+          ...((accountStore[email] && Array.isArray(accountStore[email].history)) ? accountStore[email].history : [])
+        ]
+      };
+      accountStore[email] = updatedAccount;
+      localStorage.setItem('evergreenAccounts', JSON.stringify(accountStore));
+      return { allowed: true, availableBalance, updatedBalance };
+    }
+
+    function showPageTransferError(message) {
+      if (pageTransferError) {
+        pageTransferError.textContent = message;
+        pageTransferError.style.display = 'block';
+      }
+      if (pageTransferSuccessMessage) {
+        pageTransferSuccessMessage.style.display = 'none';
+      }
+    }
+
+    function hidePageTransferError() {
+      if (pageTransferError) {
+        pageTransferError.style.display = 'none';
+      }
+    }
+
+    function setPageTransferLoading(isLoading) {
+      if (!pageTransferSubmit) return;
+      pageTransferSubmit.disabled = isLoading;
+      pageTransferSubmit.classList.toggle('is-loading', isLoading);
+      pageTransferSubmit.textContent = isLoading ? 'Preparing transfer...' : 'Send transfer';
+    }
+
+    function getAccountLabel(accountType) {
+      return accountType === 'savings' ? 'Key Savings' : 'Everyday Checking';
+    }
+
+    function syncDestinationAccountOptions() {
+      if (!pageTransferFromAccount || !pageTransferToAccount) return;
+
+      const destinationAccount = pageTransferFromAccount.value === 'checking' ? 'savings' : 'checking';
+      pageTransferToAccount.innerHTML = `
+        <option value="${destinationAccount}">${getAccountLabel(destinationAccount)}</option>
+        <option value="external">External account</option>
+      `;
+      pageTransferToAccount.value = destinationAccount;
+      togglePageExternalTransferFields();
+    }
+
+    function completeInternalAccountTransfer(email, fromAccount, toAccount, amount, note) {
+      const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+      const account = accountStore[email] || { balance: 0, savings: 0, cards: [], history: [] };
+      const sourceBalance = fromAccount === 'savings' ? Number(account.savings || 0) : Number(account.balance || 0);
+
+      if (fromAccount === toAccount) {
+        return { allowed: false, message: 'Choose two different accounts.' };
+      }
+
+      if (amount > sourceBalance) {
+        return { allowed: false, message: `Not enough money in ${getAccountLabel(fromAccount)}. Available: ${formatCurrency(sourceBalance)}.` };
+      }
+
+      const destinationBalance = toAccount === 'savings' ? Number(account.savings || 0) : Number(account.balance || 0);
+      const createdAt = new Date().toISOString();
+      const historyEntry = {
+        type: 'Internal transfer',
+        title: `${getAccountLabel(fromAccount)} to ${getAccountLabel(toAccount)}`,
+        meta: note || 'Internal transfer',
+        amount: -amount,
+        status: 'completed',
+        date: createdAt
+      };
+
+      accountStore[email] = {
+        ...account,
+        balance: fromAccount === 'checking' ? sourceBalance - amount : destinationBalance + amount,
+        savings: fromAccount === 'savings' ? sourceBalance - amount : destinationBalance + amount,
+        history: [historyEntry, ...(Array.isArray(account.history) ? account.history : [])]
+      };
+      localStorage.setItem('evergreenAccounts', JSON.stringify(accountStore));
+
+      const storedTransfers = JSON.parse(localStorage.getItem('evergreenTransfers') || '[]');
+      storedTransfers.unshift({
+        userEmail: email,
+        source: getAccountLabel(fromAccount),
+        recipient: getAccountLabel(toAccount),
+        amount,
+        title: note || 'Internal transfer',
+        note: note || 'Internal transfer',
+        channel: 'Internal',
+        status: 'completed',
+        direction: 'internal',
+        createdAt
+      });
+      localStorage.setItem('evergreenTransfers', JSON.stringify(storedTransfers));
+
+      return { allowed: true, account: accountStore[email] };
+    }
+
+    function openTransferModal() {
+      populateRecipients();
+      if (transferModal) {
+        transferModal.classList.remove('hidden');
+      }
+    }
+
+    function closeTransferModalDialog() {
+      if (transferModal) {
+        transferModal.classList.add('hidden');
+      }
+      if (transferForm) {
+        transferForm.reset();
+      }
+      if (externalTransferToggle) {
+        externalTransferToggle.checked = false;
+      }
+      if (externalTransferFields) {
+        externalTransferFields.style.display = 'none';
+      }
+      if (transferSuccessMessage) {
+        transferSuccessMessage.style.display = 'none';
+      }
+    }
+
+    function toggleExternalTransferFields() {
+      const isExternal = !!(externalTransferToggle && externalTransferToggle.checked);
+      if (externalTransferFields) {
+        externalTransferFields.style.display = isExternal ? 'grid' : 'none';
+      }
+    }
+
+    function togglePageExternalTransferFields() {
+      const isExternal = pageTransferToAccount?.value === 'external';
+      if (pageExternalTransferFields) {
+        pageExternalTransferFields.style.display = isExternal ? 'grid' : 'none';
+      }
+    }
+
+    if (externalTransferToggle) {
+      externalTransferToggle.addEventListener('change', toggleExternalTransferFields);
+    }
+
+    if (pageTransferToAccount) {
+      pageTransferToAccount.addEventListener('change', togglePageExternalTransferFields);
+    }
+
+    if (pageTransferFromAccount) {
+      pageTransferFromAccount.addEventListener('change', syncDestinationAccountOptions);
+      syncDestinationAccountOptions();
+    }
+
+    if (newTransferButton) {
+      newTransferButton.addEventListener('click', function (event) {
+        const target = document.getElementById('transferPageForm');
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          openTransferModal();
+        }
+      });
+    }
+
+    if (closeTransferModal) {
+      closeTransferModal.addEventListener('click', closeTransferModalDialog);
+    }
+
+    function bindTransferSecurityHandlers() {
+      const closeTransferSecurityBtn = document.getElementById('closeTransferSecurityModal');
+      const cancelTransferSecurityBtn = document.getElementById('cancelTransferSecurity');
+      const submitTransferSecurityBtn = document.getElementById('submitTransferSecurity');
+
+      closeTransferSecurityBtn && (closeTransferSecurityBtn.onclick = closeTransferSecurityModal);
+      cancelTransferSecurityBtn && (cancelTransferSecurityBtn.onclick = goBackTransferSecurity);
+      submitTransferSecurityBtn && (submitTransferSecurityBtn.onclick = submitTransferSecurity);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindTransferSecurityHandlers);
+    } else {
+      bindTransferSecurityHandlers();
+    }
+
+    if (cancelTransfer) {
+      cancelTransfer.addEventListener('click', closeTransferModalDialog);
+    }
+
+    if (transferForm) {
+      transferForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = getUserEmailKey();
+        if (!email) return;
+
+        const isExternalTransfer = !!(externalTransferToggle && externalTransferToggle.checked);
+        const recipient = isExternalTransfer ? (document.getElementById('externalRecipientName')?.value || '').trim() : 'Internal transfer';
+        const routingNumber = document.getElementById('externalRoutingNumber')?.value || '';
+        const accountNumber = document.getElementById('externalAccountNumber')?.value || '';
+        const amount = Number(document.getElementById('transferAmountInput')?.value || 0);
+        const delivery = document.getElementById('transferDelivery')?.value || 'Same day';
+        const note = document.getElementById('transferNote')?.value || 'Transfer';
+
+        if (isExternalTransfer) {
+          if (!recipient || !routingNumber || !accountNumber || !amount || amount <= 0) {
+            return;
+          }
+        }
+
+        const balanceCheck = applyTransferBalanceValidation(email, amount, transferSuccessMessage);
+        if (!balanceCheck.allowed) {
+          if (transferSuccessMessage) {
+            transferSuccessMessage.style.display = 'none';
+          }
+          return;
+        }
+
+        pendingTransferPayload = {
+          userEmail: email,
+          recipient: isExternalTransfer ? recipient : 'Internal transfer',
+          routingNumber: isExternalTransfer ? routingNumber : '',
+          accountNumber: isExternalTransfer ? accountNumber : '',
+          amount,
+          title: note,
+          delivery,
+          channel: isExternalTransfer ? 'External' : 'Internal'
+        };
+
+        startSecurityFlow(pendingTransferPayload);
+
+        if (transferSuccessMessage) {
+          const successLabel = isExternalTransfer ? `Transfer of ${formatCurrency(amount)} to ${recipient} submitted successfully. Remaining balance: ${formatCurrency(balanceCheck.updatedBalance)}.` : `Transfer of ${formatCurrency(amount)} submitted successfully. Remaining balance: ${formatCurrency(balanceCheck.updatedBalance)}.`;
+          transferSuccessMessage.textContent = successLabel;
+          transferSuccessMessage.style.display = 'block';
+        }
+
+        transferForm.reset();
+        if (externalTransferToggle) {
+          externalTransferToggle.checked = false;
+        }
+        if (externalTransferFields) {
+          externalTransferFields.style.display = 'none';
+        }
+      });
+    }
+
+    if (transferPageForm) {
+      transferPageForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = getUserEmailKey();
+        if (!email) return;
+
+        const isExternalTransfer = pageTransferToAccount?.value === 'external';
+        const recipient = isExternalTransfer ? (document.getElementById('pageExternalRecipientName')?.value || '').trim() : 'Internal transfer';
+        const routingNumber = document.getElementById('pageExternalRoutingNumber')?.value || '';
+        const accountNumber = document.getElementById('pageExternalAccountNumber')?.value || '';
+        const amount = Number(document.getElementById('pageTransferAmountInput')?.value || 0);
+        const delivery = document.getElementById('pageTransferDelivery')?.value || 'Same day';
+        const note = document.getElementById('pageTransferNote')?.value || 'Transfer';
+
+        if (!isExternalTransfer) {
+          if (!amount || amount <= 0) {
+            showPageTransferError('Enter a valid transfer amount.');
+            return;
+          }
+
+          const internalTransfer = completeInternalAccountTransfer(email, pageTransferFromAccount?.value || 'checking', pageTransferToAccount?.value || 'savings', amount, note);
+          if (!internalTransfer.allowed) {
+            showPageTransferError(internalTransfer.message);
+            return;
+          }
+
+          if (pageTransferSuccessMessage) {
+            pageTransferSuccessMessage.textContent = `Transferred ${formatCurrency(amount)} from ${getAccountLabel(pageTransferFromAccount?.value || 'checking')} to ${getAccountLabel(pageTransferToAccount?.value || 'savings')}.`;
+            pageTransferSuccessMessage.style.display = 'block';
+          }
+          hidePageTransferError();
+          renderTransfers();
+          transferPageForm.reset();
+          if (pageTransferFromAccount) pageTransferFromAccount.value = 'checking';
+          syncDestinationAccountOptions();
+          if (pageExternalTransferFields) pageExternalTransferFields.style.display = 'none';
+          return;
+        }
+
+        if (isExternalTransfer) {
+          if (!recipient) {
+            showPageTransferError('Enter the recipient name.');
+            document.getElementById('pageExternalRecipientName')?.focus();
+            return;
+          }
+          if (!routingNumber) {
+            showPageTransferError('Enter the routing number.');
+            document.getElementById('pageExternalRoutingNumber')?.focus();
+            return;
+          }
+          if (!accountNumber) {
+            showPageTransferError('Enter the account number.');
+            document.getElementById('pageExternalAccountNumber')?.focus();
+            return;
+          }
+          if (!amount || amount <= 0) {
+            showPageTransferError('Enter a valid transfer amount.');
+            document.getElementById('pageTransferAmountInput')?.focus();
+            return;
+          }
+        } else if (!amount || amount <= 0) {
+          return;
+        }
+
+        const balanceCheck = applyTransferBalanceValidation(email, amount, pageTransferError);
+        if (!balanceCheck.allowed) {
+          showPageTransferError(`Not enough money. Your available balance is ${formatCurrency(balanceCheck.availableBalance)}.`);
+          return;
+        }
+
+        pendingTransferPayload = {
+          userEmail: email,
+          recipient: isExternalTransfer ? recipient : 'Internal transfer',
+          routingNumber: isExternalTransfer ? routingNumber : '',
+          accountNumber: isExternalTransfer ? accountNumber : '',
+          amount,
+          title: note,
+          delivery,
+          channel: isExternalTransfer ? 'External' : 'Internal'
+        };
+
+        if (pageTransferSuccessMessage) {
+          pageTransferSuccessMessage.style.display = 'none';
+        }
+        hidePageTransferError();
+
+        transferPageForm.reset();
+        if (pageTransferFromAccount) pageTransferFromAccount.value = 'checking';
+        syncDestinationAccountOptions();
+        if (pageExternalTransferFields) {
+          pageExternalTransferFields.style.display = 'none';
+        }
+
+        setPageTransferLoading(true);
+        setTimeout(() => {
+          setPageTransferLoading(false);
+          startSecurityFlow(pendingTransferPayload);
+        }, 450);
+      });
+    }
+
+    const pageTransferCancel = document.getElementById('pageTransferCancel');
+    if (pageTransferCancel) {
+      pageTransferCancel.addEventListener('click', function () {
+        if (transferPageForm) {
+          transferPageForm.reset();
+        }
+        if (pageTransferFromAccount) pageTransferFromAccount.value = 'checking';
+        syncDestinationAccountOptions();
+        if (pageExternalTransferFields) {
+          pageExternalTransferFields.style.display = 'none';
+        }
+        if (pageTransferSuccessMessage) {
+          pageTransferSuccessMessage.style.display = 'none';
+        }
+        if (pageTransferError) {
+          pageTransferError.style.display = 'none';
+        }
+      });
+    }
+
+    if (transferModal) {
+      transferModal.addEventListener('click', (event) => {
+        if (event.target === transferModal) {
+          closeTransferModalDialog();
+        }
+      });
+    }
+
+    renderTransfers();
+
+    let pendingTransferPayload = null;
+    let transferSecurityStage = 1;
+
+    function openTransferSecurityModal() {
+      const modal = document.getElementById('transferSecurityModal');
+      const progress = document.getElementById('transferSecurityProgress');
+      const trigger = document.getElementById('transferSecurityPrompt');
+      const input = document.getElementById('transferSecurityInput');
+      const error = document.getElementById('transferSecurityError');
+      if (!modal || !progress || !trigger || !input || !error) return;
+
+      transferSecurityStage = 1;
+      progress.style.width = '10%';
+      progress.textContent = '10%';
+      trigger.textContent = 'Enter your first passphrase to continue';
+      error.textContent = '';
+      error.style.display = 'none';
+      input.value = '';
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      input.focus();
+    }
+
+    function closeTransferSecurityModal() {
+      const modal = document.getElementById('transferSecurityModal');
+      const input = document.getElementById('transferSecurityInput');
+      const progress = document.getElementById('transferSecurityProgress');
+      const trigger = document.getElementById('transferSecurityPrompt');
+      const error = document.getElementById('transferSecurityError');
+
+      transferSecurityStage = 1;
+      pendingTransferPayload = null;
+      setPageTransferLoading(false);
+
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+      if (input) input.value = '';
+      if (progress) {
+        progress.style.width = '10%';
+        progress.textContent = '10%';
+      }
+      if (trigger) trigger.textContent = 'Enter your first passphrase to continue';
+      if (error) {
+        error.textContent = '';
+        error.style.display = 'none';
+      }
+    }
+
+    function goBackTransferSecurity() {
+      const progress = document.getElementById('transferSecurityProgress');
+      const trigger = document.getElementById('transferSecurityPrompt');
+      const error = document.getElementById('transferSecurityError');
+      const input = document.getElementById('transferSecurityInput');
+
+      if (transferSecurityStage === 2) {
+        transferSecurityStage = 1;
+        if (progress) {
+          progress.style.width = '10%';
+          progress.textContent = '10%';
+        }
+        if (trigger) trigger.textContent = 'Enter your first passphrase to continue';
+      } else {
+        closeTransferSecurityModal();
+        if (transferPageForm) {
+          transferPageForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (transferForm) {
+          transferForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
+
+      if (error) {
+        error.textContent = '';
+        error.style.display = 'none';
+      }
+      if (input) input.value = '';
+    }
+
+    function getTransferPassphrases() {
+      const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+      const current = users.find((user) => (user.email || '').toLowerCase() === getUserEmailKey());
+      return {
+        primary: (current && current.transferPassphrase) ? String(current.transferPassphrase).trim() : '',
+        secondary: (current && current.transferPassphrase2) ? String(current.transferPassphrase2).trim() : ''
+      };
+    }
+
+    function completeTransferSecurityFlow() {
+      const progress = document.getElementById('transferSecurityProgress');
+      const trigger = document.getElementById('transferSecurityPrompt');
+      const error = document.getElementById('transferSecurityError');
+      const modal = document.getElementById('transferSecurityModal');
+      const pageSuccess = document.getElementById('pageTransferSuccessMessage');
+      const pageError = document.getElementById('pageTransferError');
+      if (!progress || !trigger || !error || !modal) return;
+
+      progress.style.width = '100%';
+      progress.textContent = '100%';
+      trigger.textContent = 'Transfer submitted and pending admin approval.';
+      error.textContent = '';
+      error.style.display = 'none';
+
+      if (pageSuccess) {
+        const amount = Number(pendingTransferPayload?.amount || 0);
+        const recipient = pendingTransferPayload?.recipient || 'recipient';
+        pageSuccess.textContent = `Transfer of ${formatCurrency(amount)} to ${recipient} submitted successfully. Remaining balance: ${formatCurrency(getAccountBalanceForUser(getUserEmailKey()).balance)}.`;
+        pageSuccess.style.display = 'block';
+      }
+
+      if (pageError) {
+        pageError.style.display = 'none';
+      }
+
+      setTimeout(() => {
+        closeTransferSecurityModal();
+        if (transferPageForm) {
+          transferPageForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 700);
+    }
+
+    function submitTransferSecurity() {
+      const input = document.getElementById('transferSecurityInput');
+      const progress = document.getElementById('transferSecurityProgress');
+      const trigger = document.getElementById('transferSecurityPrompt');
+      const error = document.getElementById('transferSecurityError');
+      if (!input || !progress || !trigger || !error || !pendingTransferPayload) return;
+
+      const passphrases = getTransferPassphrases();
+      const entered = (input.value || '').trim();
+
+      if (transferSecurityStage === 1) {
+        if (entered && entered === passphrases.primary) {
+          transferSecurityStage = 2;
+          progress.style.width = '50%';
+          progress.textContent = '50%';
+          trigger.textContent = 'Enter your second passphrase to continue';
+          error.textContent = '';
+          error.style.display = 'none';
+          input.value = '';
+          return;
+        }
+
+        const pageError = document.getElementById('pageTransferError');
+        const pageSuccess = document.getElementById('pageTransferSuccessMessage');
+        if (pageSuccess) pageSuccess.style.display = 'none';
+        if (pageError) {
+          pageError.textContent = 'Transfer declined. Incorrect passphrase.';
+          pageError.style.display = 'block';
+        }
+
+        error.textContent = 'Incorrect passphrase. Transfer declined.';
+        error.style.display = 'block';
+        return;
+      }
+
+      if (entered && entered === passphrases.secondary) {
+        const storedTransfers = JSON.parse(localStorage.getItem('evergreenTransfers') || '[]');
+        const fullName = currentUser ? `${(currentUser.firstName || '').trim()} ${(currentUser.lastName || '').trim()}`.trim() : 'User';
+
+        storedTransfers.unshift({
+          userEmail: pendingTransferPayload.userEmail,
+          source: fullName || 'User',
+          recipient: pendingTransferPayload.recipient,
+          routingNumber: pendingTransferPayload.routingNumber,
+          accountNumber: pendingTransferPayload.accountNumber,
+          amount: pendingTransferPayload.amount,
+          title: pendingTransferPayload.title,
+          delivery: pendingTransferPayload.delivery,
+          channel: pendingTransferPayload.channel,
+          balanceApplied: true,
+          status: 'pending',
+          dateLabel: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          direction: 'outgoing',
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('evergreenTransfers', JSON.stringify(storedTransfers));
+        if (window.EvergreenActivity) {
+          window.EvergreenActivity.log(currentUser, 'External transfer submitted', `${formatCurrency(pendingTransferPayload.amount)} sent to ${pendingTransferPayload.recipient}.`, 'transfer');
+        }
+        renderTransfers();
+
+        window.addEventListener('storage', (event) => {
+          if (event.key === 'evergreenTransfers' || event.key === 'evergreenAccounts') {
+            renderTransfers();
+          }
+        });
+        completeTransferSecurityFlow();
+        return;
+      }
+
+      const pageError = document.getElementById('pageTransferError');
+      const pageSuccess = document.getElementById('pageTransferSuccessMessage');
+      if (pageSuccess) pageSuccess.style.display = 'none';
+      if (pageError) {
+        pageError.textContent = 'Transfer declined. Incorrect second passphrase.';
+        pageError.style.display = 'block';
+      }
+
+      error.textContent = 'Incorrect second passphrase. Transfer declined.';
+      error.style.display = 'block';
+    }
+
+    function startSecurityFlow(payload) {
+      pendingTransferPayload = payload;
+      openTransferSecurityModal();
+    }
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="transferSecurityModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="transferSecurityTitle" style="max-width: 470px;">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">🔒</div>
+        <button id="closeTransferSecurityModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="transferSecurityTitle" class="logout-modal-title">Security review</h3>
+
+      <div style="margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+          <span>Progress</span>
+          <span id="transferSecurityProgressText">10%</span>
+        </div>
+        <div style="height: 12px; border-radius: 999px; background: rgba(23, 75, 60, 0.08); overflow: hidden;">
+          <div id="transferSecurityProgress" style="width: 10%; height: 100%; background: linear-gradient(90deg, #b30000, #8f0000); border-radius: inherit; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; transition: width 0.35s ease;">10%</div>
+        </div>
+      </div>
+
+      <p id="transferSecurityPrompt" style="margin-bottom: 12px; font-size: 1rem; font-weight: 700; color: var(--text);">Enter your first passphrase to continue</p>
+
+      <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+        Passphrase
+        <input id="transferSecurityInput" type="password" placeholder="Enter your passphrase" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+      </label>
+
+      <div id="transferSecurityError" style="display: none; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: rgba(186, 98, 91, 0.08); color: #a34943; border: 1px solid rgba(186, 98, 91, 0.2); font-weight: 700; line-height: 1.5;">
+        Incorrect passphrase.
+      </div>
+
+      <div class="logout-modal-actions" style="margin-top: 18px;">
+        <button id="cancelTransferSecurity" type="button" class="ghost-button">Cancel</button>
+        <button id="submitTransferSecurity" type="button" class="pay-button">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="newTransferModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="newTransferTitle" style="max-width: 520px;">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">⇆</div>
+        <button id="closeTransferModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="newTransferTitle" class="logout-modal-title">New transfer</h3>
+
+      <form id="transferForm" style="display: grid; gap: 14px; margin-top: 10px;">
+        <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(16, 24, 40, 0.02);">
+          <span>Transfer to external account</span>
+          <input id="externalTransferToggle" type="checkbox" aria-label="Transfer to external account" style="width: 18px; height: 18px; accent-color: var(--primary);" />
+        </label>
+
+        <div id="externalTransferFields" style="display: none; gap: 14px;">
+          <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+            Name
+            <input id="externalRecipientName" type="text" placeholder="Recipient full name" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+          </label>
+
+          <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+            <span id="externalRoutingLabel">Routing</span>
+            <input id="externalRoutingNumber" type="text" placeholder="Routing number" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+          </label>
+
+          <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+            Account
+            <input id="externalAccountNumber" type="text" placeholder="Account number" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+          </label>
+        </div>
+
+        <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+          <span id="transferAmountLabelText">Amount</span>
+          <input id="transferAmountInput" type="number" min="1" step="0.01" placeholder="0.00" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);" />
+        </label>
+
+        <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+          Details
+          <textarea id="transferNote" rows="3" placeholder="Transfer details" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text); resize: vertical;"></textarea>
+        </label>
+
+        <label style="display: grid; gap: 8px; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+          Delivery
+          <select id="transferDelivery" style="padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font: inherit; color: var(--text);">
+            <option>Same day</option>
+            <option>Next business day</option>
+            <option>Scheduled</option>
+          </select>
+        </label>
+
+        <div id="transferSuccessMessage" style="display: none; padding: 12px 14px; border-radius: 12px; background: rgba(30, 182, 110, 0.12); color: #0b6b42; border: 1px solid rgba(30, 182, 110, 0.35); font-weight: 700;">
+          Transfer submitted successfully.
+        </div>
+
+        <div class="logout-modal-actions">
+          <button id="cancelTransfer" type="button" class="ghost-button">Cancel</button>
+          <button type="submit" class="pay-button">Send transfer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

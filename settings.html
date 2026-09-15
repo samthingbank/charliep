@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a class="active" href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Settings</h1>
+        </div>
+        <div class="dashboard-actions">
+          <a class="nav-button small-button" href="#">Security center</a>
+        </div>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Profile & security</span>
+              <h2>Account settings</h2>
+            </div>
+            <a href="#" class="panel-link">Edit</a>
+          </div>
+
+          <div class="settings-list">
+            <div class="setting-row">
+              <span class="setting-title">Personal information</span>
+              <span class="setting-value setting-personal-name" id="settingPersonalName">Alex Morgan</span>
+            </div>
+            <div class="setting-row">
+              <span class="setting-title">Primary email</span>
+              <span class="setting-value" id="settingPrimaryEmail">alex.morgan@email.com</span>
+            </div>
+            <div class="setting-row">
+              <span class="setting-title">Two-step verification</span>
+              <span class="setting-value positive">Enabled</span>
+            </div>
+            <div class="setting-row">
+              <span class="setting-title">Transfer limits</span>
+              <span class="setting-value" id="settingTransferLimit">$5,000 / day</span>
+            </div>
+          </div>
+
+          <div class="quick-pay">
+            <a class="pay-button" href="#" id="updateProfileButton">Update profile</a>
+            <a class="pay-button outline-button" href="#">Manage security</a>
+          </div>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Preferences</span>
+              <h2>Notifications</h2>
+            </div>
+            <a href="#" class="panel-link">Manage</a>
+          </div>
+
+          <div class="transaction-list">
+            <div class="transaction-row">
+              <span class="transaction-icon transfer">✓</span>
+              <div>
+                <span class="transaction-title">Transaction alerts</span>
+                <span class="transaction-meta">Enabled</span>
+              </div>
+              <span class="transaction-amount positive">On</span>
+            </div>
+            <div class="transaction-row">
+              <span class="transaction-icon transfer">✓</span>
+              <div>
+                <span class="transaction-title">Loan reminders</span>
+                <span class="transaction-meta">Weekly</span>
+              </div>
+              <span class="transaction-amount positive">On</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+
+      const personalNameEl = document.getElementById('settingPersonalName');
+      if (personalNameEl) personalNameEl.textContent = fullName;
+
+      const primaryEmailEl = document.getElementById('settingPrimaryEmail');
+      if (primaryEmailEl) primaryEmailEl.textContent = user?.email || 'Not available';
+
+      const transferLimits = JSON.parse(localStorage.getItem('evergreenTransferLimits') || '{}');
+      const savedLimit = user?.email ? Number(transferLimits[user.email] || 5000) : 5000;
+      const transferLimitEl = document.getElementById('settingTransferLimit');
+      if (transferLimitEl) transferLimitEl.textContent = `$${savedLimit.toLocaleString('en-US')} / day`;
+    }
+
+    renderCurrentUserProfile();
+
+    const updateProfileButton = document.getElementById('updateProfileButton');
+    let transferLimitModal = document.getElementById('transferLimitModal');
+    let closeTransferLimitModal = document.getElementById('closeTransferLimitModal');
+    let cancelTransferLimit = document.getElementById('cancelTransferLimit');
+    let transferLimitForm = document.getElementById('transferLimitForm');
+    let transferLimitInput = document.getElementById('transferLimitInput');
+
+    function closeTransferLimitDialog() {
+      if (transferLimitModal) transferLimitModal.classList.add('hidden');
+    }
+
+    if (updateProfileButton) {
+      updateProfileButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+        const transferLimits = JSON.parse(localStorage.getItem('evergreenTransferLimits') || '{}');
+        if (transferLimitInput) transferLimitInput.value = user?.email ? Number(transferLimits[user.email] || 5000) : 5000;
+        if (transferLimitModal) transferLimitModal.classList.remove('hidden');
+      });
+    }
+
+    if (closeTransferLimitModal) closeTransferLimitModal.addEventListener('click', closeTransferLimitDialog);
+    if (cancelTransferLimit) cancelTransferLimit.addEventListener('click', closeTransferLimitDialog);
+
+    if (transferLimitModal) {
+      transferLimitModal.addEventListener('click', (event) => {
+        if (event.target === transferLimitModal) closeTransferLimitDialog();
+      });
+    }
+
+    if (transferLimitForm) {
+      transferLimitForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+        const limit = Number(transferLimitInput?.value || 0);
+        if (!user?.email || !Number.isFinite(limit) || limit <= 0) return;
+
+        const transferLimits = JSON.parse(localStorage.getItem('evergreenTransferLimits') || '{}');
+        transferLimits[user.email] = limit;
+        localStorage.setItem('evergreenTransferLimits', JSON.stringify(transferLimits));
+        if (window.EvergreenActivity) {
+          window.EvergreenActivity.log(user, 'Transfer limit updated', `Set the daily transfer limit to ${limit}.`, 'settings');
+        }
+        renderCurrentUserProfile();
+        closeTransferLimitDialog();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      transferLimitModal = document.getElementById('transferLimitModal');
+      closeTransferLimitModal = document.getElementById('closeTransferLimitModal');
+      cancelTransferLimit = document.getElementById('cancelTransferLimit');
+      transferLimitForm = document.getElementById('transferLimitForm');
+      transferLimitInput = document.getElementById('transferLimitInput');
+
+      if (closeTransferLimitModal) closeTransferLimitModal.addEventListener('click', closeTransferLimitDialog);
+      if (cancelTransferLimit) cancelTransferLimit.addEventListener('click', closeTransferLimitDialog);
+
+      if (transferLimitModal) {
+        transferLimitModal.addEventListener('click', (event) => {
+          if (event.target === transferLimitModal) closeTransferLimitDialog();
+        });
+      }
+
+      if (transferLimitForm) {
+        transferLimitForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+          const limit = Number(transferLimitInput?.value || 0);
+          if (!user?.email || !Number.isFinite(limit) || limit <= 0) return;
+
+          const transferLimits = JSON.parse(localStorage.getItem('evergreenTransferLimits') || '{}');
+          transferLimits[user.email] = limit;
+          localStorage.setItem('evergreenTransferLimits', JSON.stringify(transferLimits));
+          if (window.EvergreenActivity) {
+            window.EvergreenActivity.log(user, 'Transfer limit updated', `Set the daily transfer limit to ${limit}.`, 'settings');
+          }
+          renderCurrentUserProfile();
+          closeTransferLimitDialog();
+        });
+      }
+    });
+
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+
+  <div id="transferLimitModal" class="loan-modal hidden" aria-hidden="true">
+    <div class="loan-modal-card" role="dialog" aria-modal="true" aria-labelledby="transferLimitModalTitle">
+      <div class="panel-heading" style="margin-bottom: 18px;">
+        <div>
+          <span class="panel-label">Profile & security</span>
+          <h2 id="transferLimitModalTitle">Update transfer limit</h2>
+        </div>
+        <button type="button" class="modal-close" aria-label="Close transfer limit dialog" id="closeTransferLimitModal">×</button>
+      </div>
+
+      <form id="transferLimitForm" class="loan-form">
+        <label>
+          Daily transfer limit
+          <input id="transferLimitInput" type="number" min="1" step="any" required />
+        </label>
+        <div class="logout-modal-actions">
+          <button id="cancelTransferLimit" type="button" class="ghost-button">Cancel</button>
+          <button type="submit" class="pay-button">Save limit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

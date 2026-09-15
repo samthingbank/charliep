@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Deposit</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a class="active" href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Deposit</h1>
+        </div>
+        <div class="dashboard-actions">
+          <a class="nav-button small-button" href="transfers.html">+ New deposit</a>
+        </div>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Cash deposit</span>
+              <h2>Make a deposit</h2>
+            </div>
+            <a href="#" class="panel-link">History</a>
+          </div>
+
+          <div class="deposit-form">
+            <div class="transfer-row">
+              <span class="transfer-label">Account</span>
+              <span class="transfer-value">Everyday Checking •••• 5910</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">Deposit method</span>
+              <span class="transfer-value">Mobile check deposit</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">Amount</span>
+              <span class="transfer-value">$250.00</span>
+            </div>
+            <div class="transfer-row">
+              <span class="transfer-label">Status</span>
+              <span class="transfer-value positive">Ready</span>
+            </div>
+
+            <div class="quick-pay transfer-buttons">
+              <button type="button" class="pay-button" id="chooseDepositButton">Choose deposit</button>
+              <button type="button" class="pay-button outline-button" id="scanCheckButton">Scan check</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Deposit activity</span>
+              <h2>Recent deposits</h2>
+            </div>
+            <a href="#" class="panel-link">View all</a>
+          </div>
+
+          <div class="card-empty-state card-empty-activity">
+            <div class="card-empty-inner">
+              <div class="card-empty-icon">◌</div>
+              <div class="card-empty-title">No deposits yet</div>
+              <div class="card-empty-copy">Your deposit history will appear here after the bank sends a deposit to your account.</div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+    }
+
+    renderCurrentUserProfile();
+
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+    const chooseDepositButton = document.getElementById('chooseDepositButton');
+    const scanCheckButton = document.getElementById('scanCheckButton');
+    const depositMethodModal = document.getElementById('depositMethodModal');
+    const depositMethodTitle = document.getElementById('depositMethodTitle');
+    const depositMethodSelect = document.getElementById('depositMethodSelect');
+    const depositAmountInput = document.getElementById('depositAmountInput');
+    const depositReferenceInput = document.getElementById('depositReferenceInput');
+    const depositAccountInput = document.getElementById('depositAccountInput');
+    const depositMemoInput = document.getElementById('depositMemoInput');
+    const depositMethodForm = document.getElementById('depositMethodForm');
+    const depositStatusText = document.getElementById('depositStatusText');
+    const closeDepositMethodModal = document.getElementById('closeDepositMethodModal');
+    const cancelDepositMethod = document.getElementById('cancelDepositMethod');
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    function openDepositModal(mode = 'manual') {
+      if (!depositMethodModal) return;
+
+      if (mode === 'scan') {
+        if (depositMethodTitle) depositMethodTitle.textContent = 'Scan check deposit';
+        if (depositMethodSelect) depositMethodSelect.value = 'Mobile check deposit';
+        if (depositMemoInput) depositMemoInput.placeholder = 'Check number, branch code, or note';
+      } else {
+        if (depositMethodTitle) depositMethodTitle.textContent = 'Choose deposit method';
+        if (depositMethodSelect) depositMethodSelect.value = 'Mobile check deposit';
+        if (depositMemoInput) depositMemoInput.placeholder = 'Reference, note, or memo';
+      }
+
+      depositMethodModal.classList.remove('hidden');
+      depositMethodModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeDepositModal() {
+      if (!depositMethodModal) return;
+      depositMethodModal.classList.add('hidden');
+      depositMethodModal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (closeDepositMethodModal) {
+      closeDepositMethodModal.addEventListener('click', closeDepositModal);
+    }
+
+    if (cancelDepositMethod) {
+      cancelDepositMethod.addEventListener('click', closeDepositModal);
+    }
+
+    if (depositMethodModal) {
+      depositMethodModal.addEventListener('click', (event) => {
+        if (event.target === depositMethodModal) {
+          closeDepositModal();
+        }
+      });
+    }
+
+    if (chooseDepositButton) {
+      chooseDepositButton.addEventListener('click', () => {
+        window.location.href = 'transfers.html';
+      });
+    }
+
+    if (scanCheckButton) {
+      scanCheckButton.addEventListener('click', () => {
+        window.location.href = 'transfers.html';
+      });
+    }
+
+    if (depositMethodForm) {
+      depositMethodForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const method = depositMethodSelect?.value || 'Mobile check deposit';
+        const amount = depositAmountInput?.value || '0';
+        const account = depositAccountInput?.value || 'Everyday Checking •••• 5910';
+        const reference = depositReferenceInput?.value.trim();
+        const memo = depositMemoInput?.value.trim();
+
+        if (!amount || Number(amount) <= 0) {
+          if (depositStatusText) {
+            depositStatusText.textContent = 'Please enter a valid deposit amount.';
+            depositStatusText.className = 'loan-form-message error';
+          }
+          return;
+        }
+
+        const formattedAmount = window.EvergreenCurrency.format(amount);
+        const summary = `Deposit ready: ${method} for ${formattedAmount} to ${account}. ${reference ? 'Reference: ' + reference + '.' : ''} ${memo ? 'Note: ' + memo + '.' : ''}`;
+
+        if (depositStatusText) {
+          depositStatusText.textContent = summary;
+          depositStatusText.className = 'loan-form-message';
+        }
+
+        const amountCell = document.querySelector('.transfer-row .transfer-value');
+        if (amountCell) {
+          amountCell.textContent = formattedAmount;
+        }
+
+        const methodCell = document.querySelectorAll('.transfer-row .transfer-value')[1];
+        if (methodCell) {
+          methodCell.textContent = method;
+        }
+
+        closeDepositModal();
+      });
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+
+  <div id="depositMethodModal" class="loan-modal hidden" aria-hidden="true">
+    <div class="loan-modal-card" role="dialog" aria-modal="true" aria-labelledby="depositMethodTitle">
+      <div class="panel-heading" style="margin-bottom: 18px;">
+        <div>
+          <span class="panel-label">Deposit options</span>
+          <h2 id="depositMethodTitle">Choose deposit method</h2>
+        </div>
+        <button type="button" class="modal-close" aria-label="Close deposit modal" id="closeDepositMethodModal">×</button>
+      </div>
+
+      <form id="depositMethodForm" class="loan-form">
+        <div class="loan-field-grid">
+          <label>
+            <span>Deposit method</span>
+            <select id="depositMethodSelect" required>
+              <option value="Mobile check deposit">Mobile check deposit</option>
+              <option value="Bank transfer">Bank transfer</option>
+              <option value="ATM deposit">ATM deposit</option>
+              <option value="Wire transfer">Wire transfer</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Account</span>
+            <select id="depositAccountInput" required>
+              <option>Everyday Checking •••• 5910</option>
+              <option>Primary Savings •••• 5027</option>
+              <option>Business Checking •••• 2041</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Amount</span>
+            <input id="depositAmountInput" type="number" min="1" step="0.01" placeholder="250.00" required />
+          </label>
+
+          <label>
+            <span>Reference</span>
+            <input id="depositReferenceInput" type="text" placeholder="Deposit reference or check number" />
+          </label>
+
+          <label class="full-width">
+            <span>Notes</span>
+            <textarea id="depositMemoInput" rows="3" placeholder="Add any deposit note, branch info, or check details"></textarea>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="pay-button">Continue</button>
+          <button type="button" class="pay-button outline-button" id="cancelDepositMethod">Cancel</button>
+        </div>
+
+        <p id="depositStatusText" class="loan-form-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

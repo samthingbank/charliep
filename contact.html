@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Contact Support</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="account-body">
+  <div class="account-page">
+    <header class="account-header">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+        Key Bank
+      </a>
+
+      <nav class="main-nav">
+        <a href="personal.html">Personal</a>
+        <a href="business.html">Business</a>
+        <a href="savings.html">Savings</a>
+        <a href="investments.html">Investments</a>
+        <a href="contact.html">Support</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-login" id="contactLoginLink" href="login.html">Log in</a>
+      </div>
+    </header>
+
+    <main class="confirmation-layout">
+      <section class="confirmation-card" style="max-width: 700px;">
+        <div class="confirmation-icon">
+          <span>☎</span>
+        </div>
+
+        <div class="intro-label">Need help?</div>
+        <h1>Contact support</h1>
+        <p class="confirmation-message">
+          Our support team can help with application questions, verification updates, and account access issues.
+        </p>
+
+        <div class="confirmation-details">
+          <div class="detail-row">
+            <span class="detail-label">Phone</span>
+            <a class="detail-value" id="supportPhoneLink" href="tel:+17168388600">00 1 716-838-8600</a>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Email</span>
+            <a class="detail-value" id="supportEmailLink" href="mailto:support@keybank.com">support@keybank.com</a>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Hours</span>
+            <span class="detail-value">Mon–Fri • 8:00 AM – 8:00 PM</span>
+          </div>
+        </div>
+
+        <div class="confirmation-buttons">
+          <a class="primary-button confirmation-button" id="contactHomeLink" href="index.html">Return home</a>
+          <a class="ghost-button" id="contactBackLink" href="confirmation.html">Back</a>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const contactLoginLink = document.getElementById('contactLoginLink');
+    const contactHomeLink = document.getElementById('contactHomeLink');
+    const contactBackLink = document.getElementById('contactBackLink');
+    const supportPhoneLink = document.getElementById('supportPhoneLink');
+    const supportEmailLink = document.getElementById('supportEmailLink');
+    const currentUser = localStorage.getItem('evergreenCurrentUser');
+    const defaultContactSettings = {
+      phone: '00 1 716-838-8600',
+      email: 'support@keybank.com'
+    };
+
+    function getContactSettings() {
+      try {
+        return { ...defaultContactSettings, ...(JSON.parse(localStorage.getItem('evergreenContactSettings') || '{}')) };
+      } catch (error) {
+        return { ...defaultContactSettings };
+      }
+    }
+
+    const contactSettings = getContactSettings();
+    if (supportPhoneLink) {
+      supportPhoneLink.textContent = contactSettings.phone;
+      supportPhoneLink.href = `tel:${contactSettings.phone.replace(/[^+\d]/g, '')}`;
+    }
+    if (supportEmailLink) {
+      supportEmailLink.textContent = contactSettings.email;
+      supportEmailLink.href = `mailto:${contactSettings.email}`;
+    }
+
+    if (contactLoginLink && currentUser) {
+      contactLoginLink.style.display = 'none';
+    }
+
+    if (currentUser) {
+      if (contactHomeLink) contactHomeLink.href = 'dashboard.html';
+      if (contactBackLink) contactBackLink.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>

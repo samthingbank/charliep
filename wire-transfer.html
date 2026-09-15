@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Wire Transfer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html"><img class="logo-mark" src="logo.jpg" alt="Key Bank logo" /><span>Key</span></a>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar" id="profileInitials">AM</div>
+        <div><div class="profile-name" id="profileName">Alex Morgan</div><div class="profile-caption">Wire transfers</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html"><span class="nav-icon">▦</span><span>Overview</span></a>
+        <a href="accounts.html"><span class="nav-icon">⌁</span><span>Accounts</span></a>
+        <a href="transfers.html"><span class="nav-icon">⇆</span><span>Transfers</span></a>
+        <a href="wire-transfer.html" class="active"><span class="nav-icon">↗</span><span>Wire Transfer</span></a>
+        <a href="cards.html"><span class="nav-icon">◌</span><span>Cards</span></a>
+        <a href="loans.html"><span class="nav-icon">◎</span><span>Loans</span></a>
+        <a href="deposit.html"><span class="nav-icon">⇪</span><span>Deposit</span></a>
+        <a href="statements.html"><span class="nav-icon">↺</span><span>Statements</span></a>
+        <a href="settings.html"><span class="nav-icon">⚙</span><span>Settings</span></a>
+      </nav>
+      <div class="sidebar-support"><button type="button" class="logout-button" id="logoutButton">Log out</button><a href="contact.html">Need help?</a></div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div><div class="dashboard-label">Secure payments</div><h1>Wire transfer</h1></div>
+        <div class="dashboard-actions"><a class="ghost-button small-button" href="transfers.html">Back to transfers</a></div>
+      </section>
+
+      <section class="dashboard-content" style="grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);">
+        <section class="card-panel">
+          <div class="panel-heading"><div><span class="panel-label">New wire</span><h2>Send money internationally</h2></div></div>
+          <form id="wireTransferForm" style="display:grid; gap:16px; margin-top:20px;">
+            <div class="form-grid">
+              <label class="form-field"><span>Recipient name</span><input id="wireRecipientName" required placeholder="Full legal name" /></label>
+              <label class="form-field"><span>Recipient country</span><select id="wireRecipientCountry" required><option value="">Select country</option><option>Australia</option><option>Canada</option><option>India</option><option>Nigeria</option><option>South Africa</option><option>United Kingdom</option><option>United States</option></select></label>
+              <label class="form-field"><span id="wireBankCodeLabel">Bank routing / SWIFT code</span><input id="wireBankCode" required placeholder="SWIFT / BIC code" /></label>
+              <label class="form-field"><span>Recipient account / IBAN</span><input id="wireAccountNumber" required placeholder="IBAN or account number" /></label>
+              <label class="form-field full-field"><span>Recipient bank name</span><input id="wireBankName" required placeholder="Bank name" /></label>
+              <label class="form-field full-field"><span>Recipient bank address</span><input id="wireBankAddress" required placeholder="Street, city, country" /></label>
+              <label class="form-field"><span id="wireAmountLabel">Amount</span><input id="wireAmount" type="number" min="1" step="0.01" required placeholder="0.00" /></label>
+              <label class="form-field"><span>Delivery</span><select id="wireDelivery" required><option>Standard, 1-3 business days</option><option>Priority, 1 business day</option></select></label>
+              <label class="form-field"><span>Purpose of transfer</span><select id="wirePurpose" required><option>Family support</option><option>Education</option><option>Property or rent</option><option>Business payment</option><option>Other</option></select></label>
+              <label class="form-field"><span>Fee option</span><select id="wireFeeOption" required><option>Sender pays all fees</option><option>Fees shared</option><option>Recipient pays fees</option></select></label>
+              <label class="form-field"><span>Schedule date</span><input id="wireScheduleDate" type="date" required /></label>
+              <label class="form-field full-field"><span>Message to recipient</span><textarea id="wireMessage" rows="3" placeholder="Optional transfer reference"></textarea></label>
+            </div>
+            <label class="checkbox-row"><input id="wireTerms" type="checkbox" required /><span>I confirm the recipient and transfer details are accurate.</span></label>
+            <div id="wireTransferMessage" role="status" style="display:none; padding:12px 14px; border-radius:12px; font-weight:700; line-height:1.5;"></div>
+            <div class="form-buttons"><button class="submit-button" type="submit">Review wire</button><button class="ghost-button" type="button" id="wireCancelButton">Clear</button></div>
+          </form>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading"><div><span class="panel-label">Transfer details</span><h2>Before you send</h2></div></div>
+          <div class="settings-list" style="margin-top:20px;"><div class="setting-row"><span class="setting-title">Sending currency</span><span class="setting-value" id="wireCurrencyValue">USD</span></div><div class="setting-row"><span class="setting-title">Available balance</span><span class="setting-value" id="wireBalanceValue">$0.00</span></div><div class="setting-row"><span class="setting-title">Processing</span><span class="setting-value">Bank review</span></div><div class="setting-row"><span class="setting-title">Status</span><span class="setting-value">Secure</span></div></div>
+          <p style="margin-top:22px; color:var(--muted); line-height:1.6;">Wire transfers may require additional review. Confirm the recipient details before submitting.</p>
+        </section>
+      </section>
+
+      <section class="card-panel" style="margin-top:24px;"><div class="panel-heading"><div><span class="panel-label">Wire activity</span><h2>Recent wires</h2></div></div><div id="wireActivity" class="transaction-list" style="margin-top:16px;"><div class="transaction-row"><div><span class="transaction-title">No wire transfers yet</span><span class="transaction-meta">Submitted wires will appear here</span></div><span class="transaction-amount">—</span></div></div></section>
+    </main>
+  </div>
+
+  <div id="wireSecurityModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="wireSecurityTitle" style="max-width: 470px;">
+      <div class="logout-modal-header"><div class="logout-modal-icon">🔒</div><button id="closeWireSecurity" class="logout-modal-close" type="button" aria-label="Close">×</button></div>
+      <h3 id="wireSecurityTitle" class="logout-modal-title">Security review</h3>
+      <p id="wireSecurityPrompt" style="margin-bottom:12px; font-size:1rem; font-weight:700; color:var(--text);">Enter your first passphrase to continue</p>
+      <input id="wireSecurityInput" type="password" placeholder="Enter your passphrase" style="width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:#fff; font:inherit; color:var(--text);" />
+      <div id="wireSecurityError" style="display:none; margin-top:12px; padding:10px 12px; border-radius:10px; background:rgba(186,98,91,0.08); color:#a34943; border:1px solid rgba(186,98,91,0.2); font-weight:700;">Incorrect passphrase.</div>
+      <div class="logout-modal-actions" style="margin-top:18px;"><button id="cancelWireSecurity" type="button" class="ghost-button">Cancel</button><button id="submitWireSecurity" type="button" class="pay-button">Continue</button></div>
+    </div>
+  </div>
+
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+    const email = (currentUser?.email || '').trim().toLowerCase();
+    const account = accountStore[email] || { balance: 0, currency: 'USD' };
+
+    const registeredName = [currentUser?.firstName, currentUser?.lastName].filter(Boolean).join(' ').trim() || 'User Profile';
+    const registeredInitials = registeredName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+    document.querySelectorAll('.profile-name').forEach((element) => { element.textContent = registeredName; });
+    document.querySelectorAll('.profile-avatar').forEach((element) => { element.textContent = registeredInitials; });
+
+    const currencyCode = window.EvergreenCurrency.getCode();
+    const wireForm = document.getElementById('wireTransferForm');
+    const wireMessage = document.getElementById('wireTransferMessage');
+    const wireActivity = document.getElementById('wireActivity');
+    const wireAmount = document.getElementById('wireAmount');
+    const wireCurrencyValue = document.getElementById('wireCurrencyValue');
+    const wireBalanceValue = document.getElementById('wireBalanceValue');
+    const wireBankCodeLabel = document.getElementById('wireBankCodeLabel');
+    const wireBankCode = document.getElementById('wireBankCode');
+    let pendingWire = null;
+    let wireSecurityStage = 1;
+
+    const routingSettings = { AUD: ['BSB number', '6-digit BSB number'], CAD: ['Transit / institution number', 'Transit and institution number'], INR: ['IFSC code', '11-character IFSC code'], NGN: ['Bank code', 'Bank code'], ZAR: ['Branch code / SWIFT', 'Branch code or SWIFT code'], GBP: ['Sort code / SWIFT', 'Sort code or SWIFT code'], USD: ['Routing / SWIFT code', 'Routing or SWIFT code'] };
+    const routingSetting = routingSettings[currencyCode] || routingSettings.USD;
+    wireCurrencyValue.textContent = currencyCode;
+    wireBalanceValue.textContent = window.EvergreenCurrency.format(account.balance || 0);
+    document.getElementById('wireAmountLabel').textContent = `Amount (${currencyCode})`;
+    wireAmount.placeholder = `0.00 ${currencyCode}`;
+    wireBankCodeLabel.textContent = routingSetting[0];
+    wireBankCode.placeholder = routingSetting[1];
+
+    function showWireMessage(text, type) {
+      wireMessage.textContent = text;
+      wireMessage.style.display = 'block';
+      wireMessage.style.background = type === 'error' ? 'rgba(186, 98, 91, 0.08)' : 'rgba(30, 182, 110, 0.12)';
+      wireMessage.style.color = type === 'error' ? '#a34943' : '#0b6b42';
+      wireMessage.style.border = `1px solid ${type === 'error' ? 'rgba(186, 98, 91, 0.2)' : 'rgba(30, 182, 110, 0.35)'}`;
+    }
+
+    function getWirePassphrases() {
+      const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+      const user = users.find((item) => (item.email || '').trim().toLowerCase() === email);
+      return { primary: String(user?.transferPassphrase || '').trim(), secondary: String(user?.transferPassphrase2 || '').trim() };
+    }
+
+    function closeWireSecurity() {
+      document.getElementById('wireSecurityModal').classList.add('hidden');
+      document.getElementById('wireSecurityModal').setAttribute('aria-hidden', 'true');
+      document.getElementById('wireSecurityInput').value = '';
+      document.getElementById('wireSecurityError').style.display = 'none';
+      wireSecurityStage = 1;
+      pendingWire = null;
+    }
+
+    function openWireSecurity() {
+      const modal = document.getElementById('wireSecurityModal');
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      document.getElementById('wireSecurityPrompt').textContent = 'Enter your first passphrase to continue';
+      document.getElementById('wireSecurityInput').focus();
+    }
+
+    function finishWireSubmission() {
+      const wires = JSON.parse(localStorage.getItem('evergreenWires') || '[]');
+      wires.unshift({ ...pendingWire, status: 'pending', balanceApplied: false });
+      localStorage.setItem('evergreenWires', JSON.stringify(wires));
+      window.EvergreenActivity?.log(currentUser, 'Wire transfer submitted', `${window.EvergreenCurrency.format(pendingWire.amount)} wire to ${pendingWire.recipientName}.`, 'transfer');
+      showWireMessage(`Wire submitted for admin review: ${window.EvergreenCurrency.format(pendingWire.amount)} to ${pendingWire.recipientName}.`, 'success');
+      wireForm.reset();
+      renderWireActivity();
+      closeWireSecurity();
+    }
+
+    function submitWireSecurity() {
+      const input = document.getElementById('wireSecurityInput');
+      const error = document.getElementById('wireSecurityError');
+      const passphrases = getWirePassphrases();
+      const entered = input.value.trim();
+      if (!passphrases.primary || !passphrases.secondary) {
+        error.textContent = 'Transfer passphrases have not been set by the administrator.';
+        error.style.display = 'block';
+        return;
+      }
+      const expected = wireSecurityStage === 1 ? passphrases.primary : passphrases.secondary;
+      if (entered !== expected) {
+        error.textContent = 'Incorrect passphrase. Wire transfer cancelled.';
+        error.style.display = 'block';
+        return;
+      }
+      error.style.display = 'none';
+      input.value = '';
+      if (wireSecurityStage === 1) {
+        wireSecurityStage = 2;
+        document.getElementById('wireSecurityPrompt').textContent = 'Enter your second passphrase to continue';
+        input.focus();
+        return;
+      }
+      finishWireSubmission();
+    }
+
+    document.getElementById('submitWireSecurity').addEventListener('click', submitWireSecurity);
+    document.getElementById('cancelWireSecurity').addEventListener('click', closeWireSecurity);
+    document.getElementById('closeWireSecurity').addEventListener('click', closeWireSecurity);
+
+    function renderWireActivity() {
+      const wires = JSON.parse(localStorage.getItem('evergreenWires') || '[]').filter((wire) => wire.userEmail === email).slice(0, 6);
+      if (!wires.length) return;
+      wireActivity.innerHTML = wires.map((wire) => `<div class="transaction-row"><div><span class="transaction-title">${wire.recipientName}</span><span class="transaction-meta">${wire.recipientCountry} • ${wire.delivery} • ${wire.status}</span></div><span class="transaction-amount">${window.EvergreenCurrency.format(wire.amount)}</span></div>`).join('');
+    }
+
+    document.getElementById('wireRecipientCountry').addEventListener('change', (event) => {
+      document.getElementById('wireBankAddress').placeholder = event.target.value === 'South Africa' ? 'Street, city, province' : 'Street, city, country';
+    });
+
+    wireForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const amount = Number(wireAmount.value || 0);
+      if (!amount || amount <= 0) {
+        showWireMessage('Enter a valid wire amount.', 'error');
+        return;
+      }
+      if (amount > Number(account.balance || 0)) {
+        showWireMessage(`Not enough funds. Available balance: ${window.EvergreenCurrency.format(account.balance || 0)}.`, 'error');
+        return;
+      }
+      pendingWire = { id: Date.now(), userEmail: email, recipientName: document.getElementById('wireRecipientName').value.trim(), recipientCountry: document.getElementById('wireRecipientCountry').value, bankCode: wireBankCode.value.trim(), accountNumber: document.getElementById('wireAccountNumber').value.trim(), bankName: document.getElementById('wireBankName').value.trim(), bankAddress: document.getElementById('wireBankAddress').value.trim(), amount, currency: currencyCode, delivery: document.getElementById('wireDelivery').value, purpose: document.getElementById('wirePurpose').value, feeOption: document.getElementById('wireFeeOption').value, scheduleDate: document.getElementById('wireScheduleDate').value, message: document.getElementById('wireMessage').value.trim(), createdAt: new Date().toISOString() };
+      openWireSecurity();
+    });
+
+    document.getElementById('wireCancelButton').addEventListener('click', () => { wireForm.reset(); wireMessage.style.display = 'none'; });
+    renderWireActivity();
+  </script>
+</body>
+</html>

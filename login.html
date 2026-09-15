@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="login-body">
+  <div class="login-page">
+    <header class="account-header">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+        Key Bank
+      </a>
+
+      <nav class="main-nav">
+        <a href="personal.html">Personal</a>
+        <a href="business.html">Business</a>
+        <a href="savings.html">Savings</a>
+        <a href="investments.html">Investments</a>
+        <a href="contact.html">Support</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-login" href="contact.html">Help</a>
+      </div>
+    </header>
+
+    <main class="login-layout">
+      <section class="login-intro">
+        <div class="intro-label">Welcome back</div>
+        <h1>Access your bank account.</h1>
+        <p class="intro-copy">
+          Sign in to manage your savings, cards, payments, and everyday banking activity.
+        </p>
+
+        <div class="login-intro-list">
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>View balances and payments</span>
+          </div>
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>Track transactions</span>
+          </div>
+          <div class="check-row">
+            <span class="check-icon">✓</span>
+            <span>Transfer money securely</span>
+          </div>
+        </div>
+
+        <div class="secure-box">
+          <span class="secure-icon">🔒</span>
+          <span>Protected online banking</span>
+        </div>
+      </section>
+
+      <section class="login-panel-wrap">
+        <div class="form-panel login-panel">
+          <div class="form-panel-head">
+            <span class="form-kicker">Online banking</span>
+            <span class="secure-badge">Sign in</span>
+          </div>
+
+          <h2>Login to your account</h2>
+
+          <form class="login-form" id="loginForm">
+            <label class="form-field full-field">
+              <span>Email or username</span>
+              <input id="loginEmail" type="text" placeholder="name@example.com" required />
+            </label>
+
+            <label class="form-field full-field">
+              <span>Password</span>
+              <div style="position: relative;">
+                <input id="loginPassword" type="password" placeholder="Enter password" required style="padding-right: 48px;" />
+                <button id="toggleLoginPassword" type="button" aria-label="Show password" title="Show password" style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); border: 0; padding: 4px; background: transparent; color: var(--sage-deep); font-size: 1rem; cursor: pointer;">◉</button>
+              </div>
+            </label>
+
+            <div id="loginMessage" style="display:none; margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: rgba(186, 98, 91, 0.08); color: #a34943; font-weight: 700; border: 1px solid rgba(186, 98, 91, 0.2);">
+              your account is under review
+            </div>
+
+            <div class="login-actions">
+              <label class="checkbox-row">
+                <input type="checkbox" />
+                <span>Remember me</span>
+              </label>
+
+              <a class="link-text" href="forgot-password.html">Forgot password?</a>
+            </div>
+
+            <div class="form-buttons login-buttons">
+              <button type="submit" class="submit-button">Login securely</button>
+            </div>
+
+            <div class="signin-divider">
+              <span>or</span>
+            </div>
+
+            <div class="signup-link">
+              <span>New to Key?</span>
+              <a href="account.html">Open an account</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="activity-log.js"></script>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginMessage = document.getElementById('loginMessage');
+    const loginPassword = document.getElementById('loginPassword');
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+
+    toggleLoginPassword.addEventListener('click', () => {
+      const shouldShow = loginPassword.type === 'password';
+      loginPassword.type = shouldShow ? 'text' : 'password';
+      toggleLoginPassword.textContent = shouldShow ? '◉̸' : '◉';
+      toggleLoginPassword.setAttribute('aria-label', shouldShow ? 'Hide password' : 'Show password');
+      toggleLoginPassword.title = shouldShow ? 'Hide password' : 'Show password';
+    });
+
+    function showLoginMessage(message) {
+      if (!loginMessage) return;
+      loginMessage.textContent = message;
+      loginMessage.style.display = 'block';
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const password = document.getElementById('loginPassword').value;
+        const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+        const matchingUser = users.find((user) => user.email && user.email.toLowerCase() === email);
+        const anyActiveUserWithPassword = users.some((user) => user.password === password && user.status !== 'pending' && user.status !== 'rejected');
+
+        if (!matchingUser) {
+          if (anyActiveUserWithPassword) {
+            showLoginMessage('wrong email');
+          } else {
+            showLoginMessage('email and password is wrong');
+          }
+          return;
+        }
+
+        if (matchingUser.status === 'pending' || matchingUser.status === 'rejected') {
+          showLoginMessage('your account is under review');
+          return;
+        }
+
+        if (['accepted', 'active', 'locked', 'suspended', 'flagged'].includes(matchingUser.status) && matchingUser.password === password) {
+          const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+          const existingAccount = accountStore[matchingUser.email] || {};
+          const seededAccount = {
+            accountNumber: existingAccount.accountNumber || matchingUser.accountNumber || `ACC${String(Math.floor(10000000 + Math.random() * 90000000))}`,
+            checkingAccountNumber: existingAccount.checkingAccountNumber || matchingUser.checkingAccountNumber || `CHK${String(Math.floor(10000000 + Math.random() * 90000000))}`,
+            savingsAccountNumber: existingAccount.savingsAccountNumber || matchingUser.savingsAccountNumber || `SAV${String(Math.floor(10000000 + Math.random() * 90000000))}`,
+            balance: Number(existingAccount.balance || 0),
+            savings: Number(existingAccount.savings || 0),
+            cards: Array.isArray(existingAccount.cards) ? existingAccount.cards : [],
+            history: Array.isArray(existingAccount.history) ? existingAccount.history : []
+          };
+
+          accountStore[matchingUser.email] = seededAccount;
+          localStorage.setItem('evergreenAccounts', JSON.stringify(accountStore));
+
+          localStorage.setItem('evergreenCurrentUser', JSON.stringify({
+            firstName: matchingUser.firstName || '',
+            lastName: matchingUser.lastName || '',
+            email: matchingUser.email || '',
+            accountType: matchingUser.accountType || 'Everyday checking'
+          }));
+          if (window.EvergreenActivity) {
+            window.EvergreenActivity.log(matchingUser, 'User logged in', 'Successful account login.', 'login');
+          }
+          window.location.href = 'dashboard.html';
+          return;
+        }
+
+        if (matchingUser.password !== password) {
+          showLoginMessage('wrong password');
+          return;
+        }
+
+        showLoginMessage('your account is under review');
+      });
+    }
+  </script>
+</body>
+</html>

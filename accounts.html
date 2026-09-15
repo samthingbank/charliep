@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Accounts</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-page">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a class="logo" href="index.html">
+          <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+          <span>Key</span>
+        </a>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">AM</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-caption">Primary Savings</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">
+          <span class="nav-icon">▦</span>
+          <span>Overview</span>
+        </a>
+        <a class="active" href="accounts.html">
+          <span class="nav-icon">⌁</span>
+          <span>Accounts</span>
+        </a>
+        <a href="transfers.html">
+          <span class="nav-icon">⇆</span>
+          <span>Transfers</span>
+        </a>
+        <a href="wire-transfer.html">
+          <span class="nav-icon">↗</span>
+          <span>Wire Transfer</span>
+        </a>
+        <a href="cards.html">
+          <span class="nav-icon">◌</span>
+          <span>Cards</span>
+        </a>
+        <a href="loans.html">
+          <span class="nav-icon">◎</span>
+          <span>Loans</span>
+        </a>
+        <a href="deposit.html">
+          <span class="nav-icon">⇪</span>
+          <span>Deposit</span>
+        </a>
+        <a href="statements.html">
+          <span class="nav-icon">↺</span>
+          <span>Statements</span>
+        </a>
+        <a href="settings.html">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-support">
+        <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        <a href="contact.html">Need help?</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="dashboard-top">
+        <div>
+          <div class="dashboard-label">Key Banking</div>
+          <h1>Accounts</h1>
+        </div>
+        <div class="dashboard-actions">
+          <a class="nav-button small-button" href="#">+ Add account</a>
+        </div>
+      </section>
+
+      <section class="summary-grid">
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Savings</span>
+            <span class="summary-icon">✦</span>
+          </div>
+          <div class="summary-amount small-amount" id="savingsSummaryAmount">—</div>
+          <div class="summary-meta">
+            <span class="positive" id="savingsMetaText">Awaiting funds</span>
+            <span class="summary-date" id="savingsMetaStatus">Waiting</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Checking</span>
+            <span class="summary-icon">◉</span>
+          </div>
+          <div class="summary-amount small-amount" id="checkingSummaryAmount">—</div>
+          <div class="summary-meta">
+            <span class="positive" id="checkingMetaText">Awaiting funds</span>
+            <span class="summary-date" id="checkingMetaStatus">Waiting</span>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-head">
+            <span class="summary-title">Rewards</span>
+            <span class="summary-icon">♥</span>
+          </div>
+          <div class="summary-amount small-amount" id="rewardsSummaryAmount">—</div>
+          <div class="summary-meta">
+            <span class="negative" id="rewardsMetaText">Awaiting funds</span>
+            <span class="summary-date" id="rewardsMetaStatus">Waiting</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="dashboard-content">
+        <section class="card-panel account-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">All accounts</span>
+              <h2>Your Accounts</h2>
+            </div>
+            <a href="#" class="panel-link">Manage</a>
+          </div>
+
+          <div class="account-list" id="accountListContainer"></div>
+        </section>
+
+        <section class="card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">Account status</span>
+              <h2>Account Health</h2>
+            </div>
+            <a href="#" class="panel-link">Details</a>
+          </div>
+
+          <div class="health-card">
+            <div class="health-score" id="accountHealthScore">0%</div>
+            <div class="health-label" id="accountHealthLabel">Awaiting funds</div>
+            <div class="progress-bar">
+              <span class="progress-fill small-fill" id="accountHealthProgress" style="width: 0%"></span>
+            </div>
+            <div class="health-meta">
+              <span id="accountHealthMetaLeft">No alerts</span>
+              <span id="accountHealthMetaRight">Waiting for admin transfer</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="notifications.js"></script>
+  <script src="user-session.js"></script>
+  <script src="account-access.js"></script>
+  <script src="activity-log.js"></script>
+  <script src="currency.js"></script>
+  <script>
+    function renderCurrentUserProfile() {
+      const user = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+      const fullName = user ? [user.firstName, user.lastName].filter(Boolean).join(' ').trim() || 'User Profile' : 'User Profile';
+      const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U';
+
+      document.querySelectorAll('.profile-name').forEach((element) => {
+        element.textContent = fullName;
+      });
+
+      document.querySelectorAll('.profile-avatar').forEach((element) => {
+        element.textContent = initials;
+      });
+
+      const profileNameEl = document.getElementById('profileName');
+      if (profileNameEl) profileNameEl.textContent = fullName;
+
+      const profileInitialsEl = document.getElementById('profileInitials');
+      if (profileInitialsEl) profileInitialsEl.textContent = initials;
+    }
+
+    renderCurrentUserProfile();
+
+    const currentUser = JSON.parse(localStorage.getItem('evergreenCurrentUser') || 'null');
+    const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+    const currentAccount = currentUser ? (accountStore[currentUser.email] || { balance: 0, savings: 0, cards: [], history: [] }) : { balance: 0, savings: 0, cards: [], history: [] };
+
+    const savingsSummaryAmount = document.getElementById('savingsSummaryAmount');
+    const checkingSummaryAmount = document.getElementById('checkingSummaryAmount');
+    const rewardsSummaryAmount = document.getElementById('rewardsSummaryAmount');
+    const savingsMetaText = document.getElementById('savingsMetaText');
+    const checkingMetaText = document.getElementById('checkingMetaText');
+    const rewardsMetaText = document.getElementById('rewardsMetaText');
+    const savingsMetaStatus = document.getElementById('savingsMetaStatus');
+    const checkingMetaStatus = document.getElementById('checkingMetaStatus');
+    const rewardsMetaStatus = document.getElementById('rewardsMetaStatus');
+    const accountListContainer = document.getElementById('accountListContainer');
+    const accountHealthScore = document.getElementById('accountHealthScore');
+    const accountHealthLabel = document.getElementById('accountHealthLabel');
+    const accountHealthProgress = document.getElementById('accountHealthProgress');
+    const accountHealthMetaLeft = document.getElementById('accountHealthMetaLeft');
+    const accountHealthMetaRight = document.getElementById('accountHealthMetaRight');
+
+    function formatCurrency(value) {
+      return window.EvergreenCurrency.format(value);
+    }
+
+    function renderBlankState() {
+      if (savingsSummaryAmount) savingsSummaryAmount.textContent = '—';
+      if (checkingSummaryAmount) checkingSummaryAmount.textContent = '—';
+      if (rewardsSummaryAmount) rewardsSummaryAmount.textContent = '—';
+      if (savingsMetaText) savingsMetaText.textContent = 'Awaiting funds';
+      if (checkingMetaText) checkingMetaText.textContent = 'Awaiting funds';
+      if (rewardsMetaText) rewardsMetaText.textContent = 'Awaiting funds';
+      if (savingsMetaStatus) savingsMetaStatus.textContent = 'Waiting';
+      if (checkingMetaStatus) checkingMetaStatus.textContent = 'Waiting';
+      if (rewardsMetaStatus) rewardsMetaStatus.textContent = 'Waiting';
+
+      if (accountListContainer) {
+        accountListContainer.innerHTML = `
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">No account activity yet</span>
+              <span class="account-detail">Awaiting admin transfer</span>
+            </div>
+            <span class="account-balance">—</span>
+          </div>
+        `;
+      }
+
+      if (accountHealthScore) accountHealthScore.textContent = '0%';
+      if (accountHealthLabel) accountHealthLabel.textContent = 'Awaiting funds';
+      if (accountHealthProgress) accountHealthProgress.style.width = '0%';
+      if (accountHealthMetaLeft) accountHealthMetaLeft.textContent = 'No alerts';
+      if (accountHealthMetaRight) accountHealthMetaRight.textContent = 'Waiting for admin transfer';
+    }
+
+    function renderActiveState() {
+      const balance = Number(currentAccount.balance || 0);
+      const savings = Number(currentAccount.savings || 0);
+
+      if (savingsSummaryAmount) savingsSummaryAmount.textContent = formatCurrency(savings);
+      if (checkingSummaryAmount) checkingSummaryAmount.textContent = formatCurrency(balance);
+      if (rewardsSummaryAmount) rewardsSummaryAmount.textContent = formatCurrency((currentAccount.cards || []).length ? (currentAccount.cards[0]?.limit || 0) : 0);
+      if (savingsMetaText) savingsMetaText.textContent = '+12.8% growth';
+      if (checkingMetaText) checkingMetaText.textContent = `+ ${formatCurrency(balance * 0.04)}`;
+      if (rewardsMetaText) rewardsMetaText.textContent = 'Available';
+      if (savingsMetaStatus) savingsMetaStatus.textContent = 'Active';
+      if (checkingMetaStatus) checkingMetaStatus.textContent = 'Active';
+      if (rewardsMetaStatus) rewardsMetaStatus.textContent = 'Card';
+
+      if (accountListContainer) {
+        accountListContainer.innerHTML = `
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">Primary Savings</span>
+              <span class="account-detail">•••• ${String(savings || 0).slice(-4) || '0000'}</span>
+            </div>
+            <span class="account-balance">${formatCurrency(savings)}</span>
+          </div>
+          <div class="account-row-dashboard">
+            <div>
+              <span class="account-name">Everyday Checking</span>
+              <span class="account-detail">•••• ${String(balance || 0).slice(-4) || '0000'}</span>
+            </div>
+            <span class="account-balance">${formatCurrency(balance)}</span>
+          </div>
+        `;
+      }
+
+      const healthPercent = balance > 0 || savings > 0 ? '96%' : '0%';
+      if (accountHealthScore) accountHealthScore.textContent = healthPercent;
+      if (accountHealthLabel) accountHealthLabel.textContent = balance > 0 || savings > 0 ? 'Good standing' : 'Awaiting funds';
+      if (accountHealthProgress) accountHealthProgress.style.width = healthPercent;
+      if (accountHealthMetaLeft) accountHealthMetaLeft.textContent = 'No alerts';
+      if (accountHealthMetaRight) accountHealthMetaRight.textContent = balance > 0 || savings > 0 ? 'Auto-save enabled' : 'Waiting for admin transfer';
+    }
+
+    const hasFunding = Number(currentAccount.balance || 0) > 0 || Number(currentAccount.savings || 0) > 0 || (currentAccount.cards || []).length > 0;
+    if (hasFunding) {
+      renderActiveState();
+    } else {
+      renderBlankState();
+    }
+
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
+
+    function openLogoutModal() {
+      if (logoutModal) {
+        logoutModal.classList.remove('hidden');
+      }
+    }
+
+    function closeLogoutModalDialog() {
+      if (logoutModal) {
+        logoutModal.classList.add('hidden');
+      }
+    }
+
+    if (logoutButton) {
+      logoutButton.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+
+    if (closeLogoutModal) {
+      closeLogoutModal.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (cancelLogout) {
+      cancelLogout.addEventListener('click', closeLogoutModalDialog);
+    }
+
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+          closeLogoutModalDialog();
+        }
+      });
+    }
+
+    if (confirmLogout) {
+      confirmLogout.addEventListener('click', function () {
+        localStorage.removeItem('evergreenCurrentUser');
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+
+  <div id="logoutModal" class="logout-modal hidden" aria-hidden="true">
+    <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+      <div class="logout-modal-header">
+        <div class="logout-modal-icon">↗</div>
+        <button id="closeLogoutModal" class="logout-modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <h3 id="logoutModalTitle" class="logout-modal-title">Log out</h3>
+      <p class="logout-modal-copy">Are you sure you want to sign out of your Key account? You’ll need to log in again to access your dashboard.</p>
+
+      <div class="logout-modal-actions">
+        <button id="cancelLogout" type="button" class="ghost-button">Cancel</button>
+        <button id="confirmLogout" type="button" class="pay-button">Yes, log out</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

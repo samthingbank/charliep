@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Bank | Open an Account</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="account-body">
+  <div class="account-page">
+    <header class="account-header">
+      <a class="logo" href="index.html">
+        <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+        Key Bank
+      </a>
+
+      <nav class="main-nav">
+        <a href="personal.html">Personal</a>
+        <a href="business.html">Business</a>
+        <a href="savings.html">Savings</a>
+        <a href="investments.html">Investments</a>
+        <a href="contact.html">Support</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-login" href="login.html">Log in</a>
+      </div>
+    </header>
+
+    <main class="account-layout">
+      <section class="account-intro">
+        <div class="intro-label">Key Banking</div>
+        <h1>Open your account.</h1>
+        <p class="intro-copy">
+          Start with a secure account designed for everyday spending,
+          saving, and confident financial progress.
+        </p>
+
+        <div class="account-benefits">
+          <div class="benefit-row">
+            <span class="benefit-icon">✓</span>
+            <span>No monthly fee</span>
+          </div>
+          <div class="benefit-row">
+            <span class="benefit-icon">✓</span>
+            <span>Mobile banking 24/7</span>
+          </div>
+          <div class="benefit-row">
+            <span class="benefit-icon">✓</span>
+            <span>Instant card access</span>
+          </div>
+        </div>
+
+        <div class="intro-stats">
+          <div>
+            <span class="stat-number">0%</span>
+            <span class="stat-label">Monthly fee</span>
+          </div>
+          <div>
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Banking access</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="account-form-wrap">
+        <div class="form-panel">
+          <div class="form-panel-head">
+            <span class="form-kicker">Personal account</span>
+            <span class="secure-badge">Secure enrollment</span>
+          </div>
+
+          <h2>Create your profile</h2>
+
+          <form class="account-form" id="accountForm">
+            <div class="form-grid">
+              <label class="form-field">
+                <span>First name</span>
+                <input id="firstName" type="text" placeholder="Alex" required />
+              </label>
+
+              <label class="form-field">
+                <span>Last name</span>
+                <input id="lastName" type="text" placeholder="Morgan" required />
+              </label>
+
+              <label class="form-field">
+                <span>Email address</span>
+                <input id="emailAddress" type="email" placeholder="alex@email.com" required />
+              </label>
+
+              <label class="form-field">
+                <span>Password</span>
+                <div style="position: relative;">
+                  <input id="accountPassword" type="password" placeholder="Create a password" minlength="6" required style="padding-right: 48px;" />
+                  <button id="toggleAccountPassword" type="button" aria-label="Show password" title="Show password" style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); border: 0; padding: 4px; background: transparent; color: var(--sage-deep); font-size: 1rem; cursor: pointer;">◉</button>
+                </div>
+              </label>
+
+              <label class="form-field">
+                <span>Phone number</span>
+                <input id="phoneNumber" type="tel" placeholder="+1 (555) 123-4567" required />
+              </label>
+
+              <label class="form-field">
+                <span>Country</span>
+                <select id="country" required>
+                  <option value="">Select your country</option>
+                  <option value="australia">Australia</option>
+                  <option value="canada">Canada</option>
+                  <option value="india">India</option>
+                  <option value="nigeria">Nigeria</option>
+                  <option value="south-africa">South Africa</option>
+                  <option value="united-kingdom">United Kingdom</option>
+                  <option value="united-states">United States</option>
+                </select>
+              </label>
+
+              <label class="form-field">
+                <span>Account type</span>
+                <select id="accountType" required>
+                  <option>Everyday checking</option>
+                  <option>Savings account</option>
+                  <option>Joint account</option>
+                </select>
+              </label>
+
+              <label class="form-field">
+                <span>Monthly income</span>
+                <select id="monthlyIncome" required disabled>
+                  <option value="">Select your country first</option>
+                </select>
+              </label>
+
+              <label class="form-field">
+                <span>Application currency</span>
+                <input id="currencyDisplay" type="text" placeholder="Select your country first" readonly required />
+              </label>
+            </div>
+
+            <div class="terms">
+              <label class="checkbox-row">
+                <input type="checkbox" required />
+                <span>I agree to the account terms and privacy policy.</span>
+              </label>
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" class="submit-button">Continue</button>
+              <a class="ghost-button" href="index.html">Back to home</a>
+            </div>
+          </form>
+
+          <script src="activity-log.js"></script>
+          <script>
+            const country = document.getElementById('country');
+            const monthlyIncome = document.getElementById('monthlyIncome');
+            const currencyDisplay = document.getElementById('currencyDisplay');
+            const accountPassword = document.getElementById('accountPassword');
+            const toggleAccountPassword = document.getElementById('toggleAccountPassword');
+            const currencyOptions = {
+              australia: { code: 'AUD', symbol: '$' },
+              canada: { code: 'CAD', symbol: '$' },
+              india: { code: 'INR', symbol: 'INR' },
+              nigeria: { code: 'NGN', symbol: 'NGN' },
+              'south-africa': { code: 'ZAR', symbol: 'R' },
+              'united-kingdom': { code: 'GBP', symbol: 'GBP' },
+              'united-states': { code: 'USD', symbol: '$' }
+            };
+            const incomeRanges = [
+              ['0', '2,000'],
+              ['2,001', '5,000'],
+              ['5,001', '10,000'],
+              ['10,000', '+']
+            ];
+
+            function updateCurrency() {
+              const selectedCurrency = currencyOptions[country.value];
+              monthlyIncome.replaceChildren();
+              monthlyIncome.disabled = !selectedCurrency;
+
+              if (!selectedCurrency) {
+                monthlyIncome.add(new Option('Select your country first', ''));
+                currencyDisplay.value = '';
+                currencyDisplay.placeholder = 'Select your country first';
+                return;
+              }
+
+              currencyDisplay.value = `${selectedCurrency.code} (${selectedCurrency.symbol})`;
+              incomeRanges.forEach(([minimum, maximum]) => {
+                const label = maximum === '+'
+                  ? `${selectedCurrency.code} ${minimum}+`
+                  : `${selectedCurrency.code} ${minimum} - ${selectedCurrency.code} ${maximum}`;
+                monthlyIncome.add(new Option(label, label));
+              });
+            }
+
+            country.addEventListener('change', updateCurrency);
+            updateCurrency();
+
+            toggleAccountPassword.addEventListener('click', () => {
+              const shouldShow = accountPassword.type === 'password';
+              accountPassword.type = shouldShow ? 'text' : 'password';
+              toggleAccountPassword.textContent = shouldShow ? '◉̸' : '◉';
+              toggleAccountPassword.setAttribute('aria-label', shouldShow ? 'Hide password' : 'Show password');
+              toggleAccountPassword.title = shouldShow ? 'Hide password' : 'Show password';
+            });
+
+            function generateUniqueAccountNumber(prefix, existingUsers) {
+              const used = new Set(
+                (existingUsers || []).flatMap((user) => [user.accountNumber, user.checkingAccountNumber, user.savingsAccountNumber]).filter(Boolean)
+              );
+
+              let nextNumber = '';
+              do {
+                nextNumber = `${prefix}${String(Math.floor(10000000 + Math.random() * 90000000))}`;
+              } while (used.has(nextNumber));
+
+              return nextNumber;
+            }
+
+            const accountForm = document.getElementById('accountForm');
+            if (accountForm) {
+              accountForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const users = JSON.parse(localStorage.getItem('evergreenUsers') || '[]');
+                const email = document.getElementById('emailAddress').value.trim().toLowerCase();
+                const password = document.getElementById('accountPassword').value;
+
+                if (!email || !password) {
+                  return;
+                }
+
+                const accountNumber = generateUniqueAccountNumber('ACC', users);
+                const checkingAccountNumber = generateUniqueAccountNumber('CHK', users);
+                const savingsAccountNumber = generateUniqueAccountNumber('SAV', users);
+
+                const newUser = {
+                  firstName: document.getElementById('firstName').value.trim(),
+                  lastName: document.getElementById('lastName').value.trim(),
+                  email,
+                  password,
+                  phone: document.getElementById('phoneNumber').value.trim(),
+                  country: country.value,
+                  currency: currencyOptions[country.value].code,
+                  accountType: document.getElementById('accountType').value,
+                  monthlyIncome: document.getElementById('monthlyIncome').value,
+                  accountNumber,
+                  checkingAccountNumber,
+                  savingsAccountNumber,
+                  status: 'pending'
+                };
+                users.push(newUser);
+
+                const accountStore = JSON.parse(localStorage.getItem('evergreenAccounts') || '{}');
+                accountStore[email] = {
+                  accountNumber,
+                  checkingAccountNumber,
+                  savingsAccountNumber,
+                  balance: 0,
+                  savings: 0,
+                  currency: currencyOptions[country.value].code,
+                  cards: [],
+                  history: []
+                };
+
+                localStorage.setItem('evergreenUsers', JSON.stringify(users));
+                localStorage.setItem('evergreenAccounts', JSON.stringify(accountStore));
+                window.EvergreenActivity?.log(newUser, 'New user approval', 'A new account is waiting for approval.', 'approval');
+                window.location.href = 'verification.html';
+              });
+            }
+          </script>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+</body>
+</html>

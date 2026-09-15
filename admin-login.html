@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Admin | Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .admin-login-page {
+      width: min(460px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      padding: 32px 0;
+    }
+
+    .admin-login-panel {
+      width: 100%;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--cream);
+      box-shadow: 0 24px 55px var(--shadow);
+    }
+
+    .admin-login-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      color: var(--sage-dark);
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+
+    .admin-login-brand .logo-mark {
+      display: grid;
+      width: 56px;
+      height: 40px;
+      place-items: center;
+      object-fit: contain;
+    }
+
+    .admin-login-kicker {
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .admin-login-panel h1 {
+      margin-top: 10px;
+      color: var(--sage-dark);
+      font-size: 2.35rem;
+    }
+
+    .admin-login-copy {
+      margin-top: 12px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .admin-login-form {
+      display: grid;
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .admin-login-field {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .admin-login-field input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .admin-login-field input:focus {
+      outline: none;
+      border-color: var(--sage-deep);
+      box-shadow: 0 0 0 4px rgba(23, 75, 60, 0.12);
+    }
+
+    .admin-login-button {
+      width: 100%;
+      margin-top: 4px;
+      padding: 14px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--sage-deep);
+      color: var(--cream);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .admin-login-message {
+      display: none;
+      padding: 11px 13px;
+      border: 1px solid rgba(186, 98, 91, 0.22);
+      border-radius: 12px;
+      background: rgba(186, 98, 91, 0.08);
+      color: #a34943;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body class="login-body">
+  <main class="admin-login-page">
+    <section class="admin-login-panel">
+      <div class="admin-login-brand">
+        <img class="logo-mark" src="logo.jpg" alt="Key Bank logo" />
+        Key Admin
+      </div>
+
+      <div class="admin-login-kicker">Restricted access</div>
+      <h1>Admin login</h1>
+      <p class="admin-login-copy">Sign in to manage users, accounts, transfers, loans, and cards.</p>
+
+      <form class="admin-login-form" id="adminLoginForm">
+        <label class="admin-login-field">
+          Admin email
+          <input id="adminEmail" type="email" autocomplete="username" required />
+        </label>
+
+        <label class="admin-login-field">
+          Password
+          <div style="position: relative; margin-top: 8px;">
+            <input id="adminPassword" type="password" autocomplete="current-password" required style="padding-right: 48px;" />
+            <button id="toggleAdminPassword" type="button" aria-label="Show password" title="Show password" style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); border: 0; padding: 4px; background: transparent; color: var(--sage-deep); font-size: 1rem; cursor: pointer;">◉</button>
+          </div>
+        </label>
+
+        <div class="admin-login-message" id="adminLoginMessage" role="alert">Incorrect admin email or password.</div>
+        <button class="admin-login-button" type="submit">Log in to admin</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const adminLoginMessage = document.getElementById('adminLoginMessage');
+    const adminPassword = document.getElementById('adminPassword');
+    const toggleAdminPassword = document.getElementById('toggleAdminPassword');
+
+    toggleAdminPassword.addEventListener('click', () => {
+      const shouldShow = adminPassword.type === 'password';
+      adminPassword.type = shouldShow ? 'text' : 'password';
+      toggleAdminPassword.textContent = shouldShow ? '◉̸' : '◉';
+      toggleAdminPassword.setAttribute('aria-label', shouldShow ? 'Hide password' : 'Show password');
+      toggleAdminPassword.title = shouldShow ? 'Hide password' : 'Show password';
+    });
+
+    if (localStorage.getItem('evergreenAdminSession') === 'active') {
+      window.location.replace('Admin.html');
+    }
+
+    adminLoginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById('adminEmail').value.trim().toLowerCase();
+      const password = document.getElementById('adminPassword').value;
+
+      if (email === 'admin@mail.com' && password === 'AdminAdmin') {
+        localStorage.setItem('evergreenAdminSession', 'active');
+        window.location.href = 'Admin.html';
+        return;
+      }
+
+      adminLoginMessage.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
